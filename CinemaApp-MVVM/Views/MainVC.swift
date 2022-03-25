@@ -7,8 +7,22 @@
 
 import UIKit
 
+
+protocol MovieOutPutProtocol {
+    func changeLoading(isLoad: Bool)
+    func saveMovieDatas(listValues: [MovieInfo])
+}
+
+
+
 class MainVC: UIViewController {
 
+    private lazy var movieList: [MovieInfo] = []
+    lazy var viewModel = HomeViewModel()
+    private let indicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    
+    
     
     // General CollectionView
     private let generalCollectionView: UICollectionView = {
@@ -35,18 +49,42 @@ class MainVC: UIViewController {
         super.viewDidLoad()
         setupViews()
         
+        //viewModel delegate
+        viewModel.setDelegate(output: self)
+        viewModel.fetchItems()
+        
     }
     
     func setupViews() {
         view.addSubview(generalCollectionView)
+        view.addSubview(indicator)
         setGeneralCollectionViewConstraints()
         
         generalCollectionView.delegate = self
         generalCollectionView.dataSource = self
+        
+        indicator.startAnimating()
     }
 
 
 }
+
+
+//MARK: - MovieOutPutProtocol
+extension MainVC: MovieOutPutProtocol {
+    
+    func changeLoading(isLoad: Bool) {
+        isLoad ? indicator.startAnimating() : indicator.stopAnimating()
+    }
+    
+    func saveMovieDatas(listValues: [MovieInfo]) {
+        self.movieList = listValues
+        generalCollectionView.reloadData()
+    }
+    
+    
+}
+
 
 
 //MARK: -  Constraints

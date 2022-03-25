@@ -16,9 +16,14 @@
 		63683C2827ED421900688221 /* HomeTopSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63683C2727ED421800688221 /* HomeTopSliderCell.swift */; };
 		63683C2A27ED77F500688221 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63683C2927ED77F500688221 /* MovieModel.swift */; };
 		63683C2C27ED792300688221 /* MovieDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63683C2B27ED792300688221 /* MovieDetailsModel.swift */; };
+		63683C2E27ED836400688221 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63683C2D27ED836400688221 /* WebService.swift */; };
+		63683C3027ED8C3600688221 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63683C2F27ED8C3600688221 /* HomeViewModel.swift */; };
+		A27B9DF82912698BC11CEC68 /* Pods_CinemaApp_MVVM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A8566F23698CE994B9A2026 /* Pods_CinemaApp_MVVM.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A8566F23698CE994B9A2026 /* Pods_CinemaApp_MVVM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CinemaApp_MVVM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F122B9DC2EB38879DDA1095 /* Pods-CinemaApp-MVVM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinemaApp-MVVM.debug.xcconfig"; path = "Target Support Files/Pods-CinemaApp-MVVM/Pods-CinemaApp-MVVM.debug.xcconfig"; sourceTree = "<group>"; };
 		63683C0527ED24C900688221 /* CinemaApp-MVVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CinemaApp-MVVM.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63683C0827ED24C900688221 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63683C0A27ED24C900688221 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -30,6 +35,9 @@
 		63683C2727ED421800688221 /* HomeTopSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTopSliderCell.swift; sourceTree = "<group>"; };
 		63683C2927ED77F500688221 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		63683C2B27ED792300688221 /* MovieDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsModel.swift; sourceTree = "<group>"; };
+		63683C2D27ED836400688221 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		63683C2F27ED8C3600688221 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		A2A01DCB0047A10867E3EFCD /* Pods-CinemaApp-MVVM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinemaApp-MVVM.release.xcconfig"; path = "Target Support Files/Pods-CinemaApp-MVVM/Pods-CinemaApp-MVVM.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,17 +45,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A27B9DF82912698BC11CEC68 /* Pods_CinemaApp_MVVM.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C89CA2DB72DFB5B738B3C46 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1A8566F23698CE994B9A2026 /* Pods_CinemaApp_MVVM.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		63683BFC27ED24C900688221 = {
 			isa = PBXGroup;
 			children = (
 				63683C0727ED24C900688221 /* CinemaApp-MVVM */,
 				63683C0627ED24C900688221 /* Products */,
+				E9B985A0C227BD342B29256D /* Pods */,
+				2C89CA2DB72DFB5B738B3C46 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,6 +132,7 @@
 		63683C2027ED25C000688221 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				63683C2F27ED8C3600688221 /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -120,8 +140,18 @@
 		63683C2227ED25C900688221 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				63683C2D27ED836400688221 /* WebService.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		E9B985A0C227BD342B29256D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1F122B9DC2EB38879DDA1095 /* Pods-CinemaApp-MVVM.debug.xcconfig */,
+				A2A01DCB0047A10867E3EFCD /* Pods-CinemaApp-MVVM.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -131,9 +161,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63683C1927ED24CA00688221 /* Build configuration list for PBXNativeTarget "CinemaApp-MVVM" */;
 			buildPhases = (
+				B5C57EBDB4E49F354FB10B74 /* [CP] Check Pods Manifest.lock */,
 				63683C0127ED24C900688221 /* Sources */,
 				63683C0227ED24C900688221 /* Frameworks */,
 				63683C0327ED24C900688221 /* Resources */,
+				DD0867CFA943357C9BDF98AA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -188,11 +220,55 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B5C57EBDB4E49F354FB10B74 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CinemaApp-MVVM-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DD0867CFA943357C9BDF98AA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CinemaApp-MVVM/Pods-CinemaApp-MVVM-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CinemaApp-MVVM/Pods-CinemaApp-MVVM-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CinemaApp-MVVM/Pods-CinemaApp-MVVM-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		63683C0127ED24C900688221 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63683C2E27ED836400688221 /* WebService.swift in Sources */,
+				63683C3027ED8C3600688221 /* HomeViewModel.swift in Sources */,
 				63683C2A27ED77F500688221 /* MovieModel.swift in Sources */,
 				63683C2C27ED792300688221 /* MovieDetailsModel.swift in Sources */,
 				63683C2627ED279E00688221 /* HomeBottomListCell.swift in Sources */,
@@ -325,6 +401,7 @@
 		};
 		63683C1A27ED24CA00688221 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1F122B9DC2EB38879DDA1095 /* Pods-CinemaApp-MVVM.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -352,6 +429,7 @@
 		};
 		63683C1B27ED24CA00688221 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2A01DCB0047A10867E3EFCD /* Pods-CinemaApp-MVVM.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
