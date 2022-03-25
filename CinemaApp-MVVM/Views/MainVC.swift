@@ -121,7 +121,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
             return 1
         }
         
-        return 3
+        return  self.movieList.count
     }
     
     
@@ -132,6 +132,9 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
         // Top
         if indexPath.section == 0 {
             let topCell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: HomeTopCell.identifier, for: indexPath) as! HomeTopCell
+            
+            //topCell.saveModel(model: movieList[indexPath.item])
+            topCell.mvList = self.movieList
             
             return topCell
         }
@@ -147,6 +150,8 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
         bottomListCell.layer.shadowRadius = 5
         bottomListCell.layer.shadowOffset = .zero
         bottomListCell.layer.shadowOpacity = 0.8
+        
+        bottomListCell.saveModel(model: movieList[indexPath.item])
         
         return bottomListCell
     }

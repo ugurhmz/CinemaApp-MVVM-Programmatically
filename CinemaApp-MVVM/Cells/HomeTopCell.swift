@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class HomeTopCell: UICollectionViewCell {
+    var myModel: MovieInfo?
+    var mvList = [MovieInfo]()
+    
     static var identifier = "HomeTopCell"
     var albumArr = ["a1","a2","a3","a4","a5"]
     
@@ -63,6 +67,13 @@ class HomeTopCell: UICollectionViewCell {
         fatalError("not imp")
     }
     
+    
+    func saveModel(model: MovieInfo) {
+        myModel = model
+    }
+    
+    
+    
 }
 
 
@@ -109,7 +120,7 @@ extension HomeTopCell: UICollectionViewDelegate, UICollectionViewDataSource {
     // numberOfItemsInSection
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return mvList.count
     }
     
     
@@ -120,8 +131,11 @@ extension HomeTopCell: UICollectionViewDelegate, UICollectionViewDataSource {
         
         let cell = topGeneralCollectionView.dequeueReusableCell(withReuseIdentifier: HomeTopSliderCell.identifier, for: indexPath) as! HomeTopSliderCell
         
-        cell.backgroundColor = indexPath.row % 2 == 0 ? .purple : .systemPink
-        cell.mvImages = albumArr[indexPath.item]
+        //cell.backgroundColor = indexPath.row % 2 == 0 ? .purple : .systemPink
+       // cell.mvImages = albumArr[indexPath.item]
+        
+        cell.setupMy(model: mvList[indexPath.item])
+        
         
         return cell
     }

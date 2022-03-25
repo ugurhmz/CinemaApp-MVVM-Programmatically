@@ -113,6 +113,9 @@ class HomeTopSliderCell: UICollectionViewCell {
         
     }
     
+    func setupMy(model: MovieInfo) {
+        titleLabel.text = "\(model.title)"
+    }
     
     
     required init?(coder: NSCoder) {

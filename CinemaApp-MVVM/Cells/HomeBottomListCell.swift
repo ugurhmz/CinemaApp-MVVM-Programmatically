@@ -7,13 +7,16 @@
 
 import UIKit
 
+
+
 class HomeBottomListCell: UICollectionViewCell {
     static var identifier = "HomeBottomListCell"
+    private let randomImage: String = "https://picsum.photos/200/300"
     
     private let imageView: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "a5")
-        iv.contentMode = .scaleAspectFill
+        //iv.image = UIImage(named: "a5")
+        iv.contentMode = .scaleToFill
      
         iv.clipsToBounds = true
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -94,6 +97,22 @@ class HomeBottomListCell: UICollectionViewCell {
     }
     
     
+    func saveModel(model: MovieInfo) {
+        
+        
+        // /qsdjk9oAKSQMWs0Vt5Pyfh6O4GZ.jpg
+        let defaultLink = "http://image.tmdb.org/t/p/w500"
+        let completePath = defaultLink + model.posterPath
+        
+        titleLabel.text = "\(model.title)"
+        imageView.af.setImage(withURL: URL(string: completePath ) ??
+                                  URL(string: randomImage)!)
+        //imageView.downloaded(from: completePath, contentMode : .scaleAspectFill)
+        definitionLabel.text = "\(model.overview)"
+       
+        
+    }
+    
 }
 
 
@@ -152,3 +171,28 @@ extension HomeBottomListCell {
     }
     
 }
+
+
+
+//MARK: - Extension
+
+//extension UIImageView {
+//    func downloaded(from url: URL, contentMode mode: ContentMode = .scaleAspectFit) {
+//        contentMode = mode
+//        URLSession.shared.dataTask(with: url) { data, response, error in
+//            guard
+//                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+//                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+//                let data = data, error == nil,
+//                let image = UIImage(data: data)
+//                else { return }
+//            DispatchQueue.main.async() { [weak self] in
+//                self?.image = image
+//            }
+//        }.resume()
+//    }
+//    func downloaded(from link: String, contentMode mode: ContentMode = .scaleAspectFit) {
+//        guard let url = URL(string: link) else { return }
+//        downloaded(from: url, contentMode: mode)
+//    }
+//}
