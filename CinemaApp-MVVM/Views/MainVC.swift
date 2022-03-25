@@ -90,15 +90,17 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        // Top
         if indexPath.section == 0 {
             let topCell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: HomeTopCell.identifier, for: indexPath) as! HomeTopCell
             
-            topCell.backgroundColor = .green
             return topCell
         }
         
+        // bottom
         let bottomListCell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: HomeBottomListCell.identifier, for: indexPath) as! HomeBottomListCell
-            bottomListCell.backgroundColor = .blue
+           
+        bottomListCell.backgroundColor  = .blue
         
         return bottomListCell
     }
@@ -125,5 +127,13 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
         return CGSize(width: generalCollectionView.frame.width,
                       height: generalCollectionView.frame.width - 280)
         
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        return UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
     }
 }
