@@ -24,7 +24,7 @@ class HomeBottomListCell: UICollectionViewCell {
     // movie title
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 25, weight: .bold)
+        label.font = .systemFont(ofSize: 23, weight: .bold)
         label.text = "Spider Man"
         label.textColor = .white
         
@@ -45,6 +45,27 @@ class HomeBottomListCell: UICollectionViewCell {
         return label
     }()
    
+    // relase date label
+    private let releaseDateLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.text = "26-04-1994"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .lightGray
+        return label
+    }()
+    
+    
+    // goToDetailIcon
+    private let goToDetailIcon: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(systemName: "chevron.right")
+        iv.contentMode = .scaleAspectFit
+        iv.tintColor = .yellow
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
+    }()
+    
     
     
     override init(frame: CGRect) {
@@ -56,12 +77,15 @@ class HomeBottomListCell: UICollectionViewCell {
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(definitionLabel)
+        contentView.addSubview(releaseDateLabel)
+        contentView.addSubview(goToDetailIcon)
       
         
         setImageViewConstraints()
         setTitleLabelConstraints()
         setDefinitionleLabelConstraints()
-        
+        setreleaseDateLabelConstraints()
+        setGoToDetailIconConstraints()
       
     }
     
@@ -93,7 +117,7 @@ extension HomeBottomListCell {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            //titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -35),
             //titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -50)
         ])
     }
@@ -102,8 +126,28 @@ extension HomeBottomListCell {
         NSLayoutConstraint.activate([
             definitionLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 20),
             definitionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-            definitionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15)
+            definitionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8)
         
+        ])
+    }
+    
+    
+    private func setreleaseDateLabelConstraints(){
+        NSLayoutConstraint.activate([
+            releaseDateLabel.topAnchor.constraint(equalTo: definitionLabel.bottomAnchor, constant: 5),
+            
+            releaseDateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            releaseDateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
+        ])
+    }
+    
+    private func setGoToDetailIconConstraints() {
+        NSLayoutConstraint.activate([
+            goToDetailIcon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            goToDetailIcon.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            goToDetailIcon.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 45),
+            goToDetailIcon.heightAnchor.constraint(equalToConstant: 35)
+           
         ])
     }
     

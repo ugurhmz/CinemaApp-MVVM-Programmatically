@@ -18,7 +18,7 @@ class MainVC: UIViewController {
       
         cv.showsHorizontalScrollIndicator = false
         cv.translatesAutoresizingMaskIntoConstraints = false
-        
+        cv.backgroundColor = .black
         
         //register cells
         cv.register(HomeTopCell.self,
@@ -103,9 +103,23 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
            
       
         bottomListCell.backgroundColor = .black
-        
+      
+        bottomListCell.layer.shadowColor = UIColor.white.cgColor
+        bottomListCell.layer.shadowPath = UIBezierPath(rect: bottomListCell.bounds).cgPath
+        bottomListCell.layer.shadowRadius = 5
+        bottomListCell.layer.shadowOffset = .zero
+        bottomListCell.layer.shadowOpacity = 0.8
         
         return bottomListCell
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        if section == 1 {
+            return 25
+        }
+        return .zero
     }
     
 }
@@ -137,6 +151,8 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         
-        return UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
+        return UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
     }
+    
+   
 }
