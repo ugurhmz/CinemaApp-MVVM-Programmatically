@@ -90,9 +90,9 @@
 		63683C1E27ED25B900688221 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				63683C2727ED421800688221 /* HomeTopSliderCell.swift */,
 				63683C2327ED279000688221 /* HomeTopCell.swift */,
 				63683C2527ED279E00688221 /* HomeBottomListCell.swift */,
-				63683C2727ED421800688221 /* HomeTopSliderCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";

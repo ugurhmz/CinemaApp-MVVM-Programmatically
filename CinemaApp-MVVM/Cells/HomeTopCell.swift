@@ -9,7 +9,7 @@ import UIKit
 
 class HomeTopCell: UICollectionViewCell {
     static var identifier = "HomeTopCell"
-    
+    var albumArr = ["a1","a2","a3","a4","a5"]
     
     // topGeneralCollectionView
     private let topGeneralCollectionView: UICollectionView = {
@@ -121,6 +121,7 @@ extension HomeTopCell: UICollectionViewDelegate, UICollectionViewDataSource {
         let cell = topGeneralCollectionView.dequeueReusableCell(withReuseIdentifier: HomeTopSliderCell.identifier, for: indexPath) as! HomeTopSliderCell
         
         cell.backgroundColor = indexPath.row % 2 == 0 ? .purple : .systemPink
+        cell.mvImages = albumArr[indexPath.item]
         
         return cell
     }
