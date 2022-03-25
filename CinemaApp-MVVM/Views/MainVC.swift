@@ -19,6 +19,7 @@ class MainVC: UIViewController {
         cv.showsHorizontalScrollIndicator = false
         cv.translatesAutoresizingMaskIntoConstraints = false
         
+        
         //register cells
         cv.register(HomeTopCell.self,
                     forCellWithReuseIdentifier: HomeTopCell.identifier)
@@ -100,7 +101,9 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
         // bottom
         let bottomListCell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: HomeBottomListCell.identifier, for: indexPath) as! HomeBottomListCell
            
-        bottomListCell.backgroundColor  = .blue
+      
+        bottomListCell.backgroundColor = .black
+        
         
         return bottomListCell
     }
