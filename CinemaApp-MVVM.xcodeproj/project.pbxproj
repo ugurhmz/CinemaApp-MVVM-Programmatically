@@ -14,6 +14,8 @@
 		63683C2427ED279000688221 /* HomeTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63683C2327ED279000688221 /* HomeTopCell.swift */; };
 		63683C2627ED279E00688221 /* HomeBottomListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63683C2527ED279E00688221 /* HomeBottomListCell.swift */; };
 		63683C2827ED421900688221 /* HomeTopSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63683C2727ED421800688221 /* HomeTopSliderCell.swift */; };
+		63683C2A27ED77F500688221 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63683C2927ED77F500688221 /* MovieModel.swift */; };
+		63683C2C27ED792300688221 /* MovieDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63683C2B27ED792300688221 /* MovieDetailsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		63683C2327ED279000688221 /* HomeTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTopCell.swift; sourceTree = "<group>"; };
 		63683C2527ED279E00688221 /* HomeBottomListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomListCell.swift; sourceTree = "<group>"; };
 		63683C2727ED421800688221 /* HomeTopSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTopSliderCell.swift; sourceTree = "<group>"; };
+		63683C2927ED77F500688221 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
+		63683C2B27ED792300688221 /* MovieDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,8 @@
 		63683C1F27ED25BD00688221 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				63683C2927ED77F500688221 /* MovieModel.swift */,
+				63683C2B27ED792300688221 /* MovieDetailsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -187,6 +193,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63683C2A27ED77F500688221 /* MovieModel.swift in Sources */,
+				63683C2C27ED792300688221 /* MovieDetailsModel.swift in Sources */,
 				63683C2627ED279E00688221 /* HomeBottomListCell.swift in Sources */,
 				63683C2427ED279000688221 /* HomeTopCell.swift in Sources */,
 				63683C0D27ED24C900688221 /* MainVC.swift in Sources */,
