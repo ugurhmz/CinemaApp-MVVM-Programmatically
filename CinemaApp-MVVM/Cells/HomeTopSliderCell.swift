@@ -125,16 +125,16 @@ class HomeTopSliderCell: UICollectionViewCell {
 
 extension HomeTopSliderCell {
     
-    public func saveModel(model: MovieInfo){
+    public func saveModel(model: MovieUpComingInfo){
         let defaultLink = "http://image.tmdb.org/t/p/w500"
-        let completePath = defaultLink + model.backdropPath
+        let completePath = defaultLink + (model.backdropPath ?? "")
 
-        titleLabel.text = "\(model.title)"
+        titleLabel.text = "\(model.title ?? "")"
         movieImageView.af.setImage(withURL: URL(string: completePath ) ??
                                   URL(string: randomImage)!)
     
-        titleLabel.text = "\(model.originalTitle)"
-        definitionLabel.text = "\(model.overview)"
+        titleLabel.text = "\(model.title ?? "-")"
+        definitionLabel.text = "\(model.overview ?? "-")"
     }
 }
 

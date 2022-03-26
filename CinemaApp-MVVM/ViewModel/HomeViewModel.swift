@@ -9,9 +9,9 @@ import Foundation
 
 
 protocol HomeViewModelProtocol {
-    func fetchItems()
+    func fetchNowPlayingItems()
     func changeLoading()
-    
+    func fetchUpcomingItems()
     
     var movieNowPlayingList: [MovieInfo] { get set }
     var movieWebService: MovieService {get}
@@ -23,10 +23,12 @@ protocol HomeViewModelProtocol {
 
 
 final class HomeViewModel: HomeViewModelProtocol {
+   
     
     private var isLoading = false
     
     var movieNowPlayingList: [MovieInfo] = []
+    var movieUpComingList: [MovieUpComingInfo] = []
     var movieWebService: MovieService
     var movieOutPut: MovieOutPutProtocol?
     
@@ -41,11 +43,11 @@ final class HomeViewModel: HomeViewModelProtocol {
     }
    
     
-    // FETCH
-    func fetchItems() {
+    // fetch now playing
+    func fetchNowPlayingItems() {
         changeLoading()
         
-        movieWebService.fetchMovies(movieType: .nowPlaying) { [weak self] response, error in
+        movieWebService.fetchNowPlayingMovies(movieType: .nowPlaying) { [weak self] response, error in
            
             self?.changeLoading()
             
@@ -55,10 +57,30 @@ final class HomeViewModel: HomeViewModelProtocol {
             }
             
             self?.movieNowPlayingList = response ?? []
-            self?.movieOutPut?.saveMovieDatas(listValues: self?.movieNowPlayingList ?? [])
+            self?.movieOutPut?.saveMovieNowPlayingDatas(listValues: self?.movieNowPlayingList ?? [])
             
         }
     }
+    
+
+    
+    // fetch upComing
+    func fetchUpcomingItems(){
+        changeLoading()
+        movieWebService.fetchUpComingMovies(movieType: .upComing) { [weak self] response, error in
+            self?.changeLoading()
+            
+            guard error == nil else {
+                print(error!)
+                return}
+            
+            self?.movieUpComingList = response ??  []
+          
+            self?.movieOutPut?.saveMovieUpComingPlayingDatas(listValues: self?.movieUpComingList ?? [])
+        }
+    }
+    
+    
     
     
     func changeLoading() {

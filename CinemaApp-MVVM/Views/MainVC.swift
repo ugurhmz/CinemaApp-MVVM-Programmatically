@@ -10,7 +10,8 @@ import UIKit
 
 protocol MovieOutPutProtocol {
     func changeLoading(isLoad: Bool)
-    func saveMovieDatas(listValues: [MovieInfo])
+    func saveMovieNowPlayingDatas(listValues: [MovieInfo])
+    func saveMovieUpComingPlayingDatas(listValues: [MovieUpComingInfo])
 }
 
 
@@ -18,6 +19,7 @@ protocol MovieOutPutProtocol {
 class MainVC: UIViewController {
 
     private lazy var homeMovieNowPlayingList: [MovieInfo] = []
+    private lazy var homeMovieUpComingList: [MovieUpComingInfo] = []
     lazy var viewModel = HomeViewModel()
     private let indicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
@@ -51,7 +53,8 @@ class MainVC: UIViewController {
         
         //viewModel delegate
         viewModel.setDelegate(output: self)
-        viewModel.fetchItems()
+        viewModel.fetchNowPlayingItems()
+        viewModel.fetchUpcomingItems()
         
     }
     
@@ -73,12 +76,22 @@ class MainVC: UIViewController {
 //MARK: - MovieOutPutProtocol
 extension MainVC: MovieOutPutProtocol {
     
+   
+    
+    
     func changeLoading(isLoad: Bool) {
         isLoad ? indicator.startAnimating() : indicator.stopAnimating()
     }
     
-    func saveMovieDatas(listValues: [MovieInfo]) {
+    // now_playing
+    func saveMovieNowPlayingDatas(listValues: [MovieInfo]) {
         self.homeMovieNowPlayingList = listValues
+        generalCollectionView.reloadData()
+    }
+    
+    // upcoming
+    func saveMovieUpComingPlayingDatas(listValues: [MovieUpComingInfo]) {
+        self.homeMovieUpComingList = listValues
         generalCollectionView.reloadData()
     }
     
@@ -134,7 +147,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
             let topCell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: HomeTopCell.identifier, for: indexPath) as! HomeTopCell
             
-            topCell.setX(model: homeMovieNowPlayingList)
+            topCell.setX(model: homeMovieUpComingList)
             
             return topCell
         }

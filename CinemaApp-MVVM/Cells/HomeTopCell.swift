@@ -10,7 +10,8 @@ import AlamofireImage
 
 class HomeTopCell: UICollectionViewCell {
     
-    var cellMovieNowPlayingList = [MovieInfo]()
+   
+    var cellMovieUpComingList = [MovieUpComingInfo]()
     
     static var identifier = "HomeTopCell"
     //var albumArr = ["a1","a2","a3","a4","a5"]
@@ -73,11 +74,11 @@ class HomeTopCell: UICollectionViewCell {
 
 extension HomeTopCell {
     
-    func setX(model: [MovieInfo]) {
+    func setX(model: [MovieUpComingInfo]) {
         
-        self.cellMovieNowPlayingList = model
+        self.cellMovieUpComingList = model
         
-        pageControl.numberOfPages = cellMovieNowPlayingList.count
+        pageControl.numberOfPages = cellMovieUpComingList.count
         
         topGeneralCollectionView.reloadData()
     }
@@ -135,7 +136,7 @@ extension HomeTopCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         
-        return cellMovieNowPlayingList.isEmpty == true ? 0 : cellMovieNowPlayingList.count
+        return cellMovieUpComingList.isEmpty == true ? 0 : cellMovieUpComingList.count
     }
     
     
@@ -150,7 +151,7 @@ extension HomeTopCell: UICollectionViewDelegate, UICollectionViewDataSource {
         //cell.backgroundColor = indexPath.row % 2 == 0 ? .purple : .systemPink
        // cell.mvImages = albumArr[indexPath.item]
        
-        cell.saveModel(model: cellMovieNowPlayingList[indexPath.row])
+        cell.saveModel(model: cellMovieUpComingList[indexPath.row])
         
         return cell
     }

@@ -18,6 +18,7 @@
 		63683C2C27ED792300688221 /* MovieDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63683C2B27ED792300688221 /* MovieDetailsModel.swift */; };
 		63683C2E27ED836400688221 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63683C2D27ED836400688221 /* WebService.swift */; };
 		63683C3027ED8C3600688221 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63683C2F27ED8C3600688221 /* HomeViewModel.swift */; };
+		637D615E27EEE92C006F95AE /* MovieUpComingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637D615D27EEE92C006F95AE /* MovieUpComingModel.swift */; };
 		A27B9DF82912698BC11CEC68 /* Pods_CinemaApp_MVVM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A8566F23698CE994B9A2026 /* Pods_CinemaApp_MVVM.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		63683C2B27ED792300688221 /* MovieDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsModel.swift; sourceTree = "<group>"; };
 		63683C2D27ED836400688221 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		63683C2F27ED8C3600688221 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		637D615D27EEE92C006F95AE /* MovieUpComingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieUpComingModel.swift; sourceTree = "<group>"; };
 		A2A01DCB0047A10867E3EFCD /* Pods-CinemaApp-MVVM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinemaApp-MVVM.release.xcconfig"; path = "Target Support Files/Pods-CinemaApp-MVVM/Pods-CinemaApp-MVVM.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,6 +127,7 @@
 			children = (
 				63683C2927ED77F500688221 /* MovieModel.swift */,
 				63683C2B27ED792300688221 /* MovieDetailsModel.swift */,
+				637D615D27EEE92C006F95AE /* MovieUpComingModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				63683C2427ED279000688221 /* HomeTopCell.swift in Sources */,
 				63683C0D27ED24C900688221 /* MainVC.swift in Sources */,
 				63683C0927ED24C900688221 /* AppDelegate.swift in Sources */,
+				637D615E27EEE92C006F95AE /* MovieUpComingModel.swift in Sources */,
 				63683C0B27ED24C900688221 /* SceneDelegate.swift in Sources */,
 				63683C2827ED421900688221 /* HomeTopSliderCell.swift in Sources */,
 			);
