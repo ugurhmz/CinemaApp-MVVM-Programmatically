@@ -93,7 +93,7 @@ extension HomeTopCell {
     
     private func setTopGeneralCollectionViewConstraints() {
         NSLayoutConstraint.activate([
-            topGeneralCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            topGeneralCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor,constant: -70),
             topGeneralCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             topGeneralCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             topGeneralCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)

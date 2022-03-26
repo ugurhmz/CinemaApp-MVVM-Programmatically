@@ -158,7 +158,7 @@ extension HomeTopSliderCell {
     
     private func setTransparentViewConstraints() {
         NSLayoutConstraint.activate([
-            transparentView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            transparentView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             transparentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             transparentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             transparentView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
@@ -191,7 +191,7 @@ extension HomeTopSliderCell {
             definitionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
             definitionLabel.leadingAnchor.constraint(equalTo: labelsStackView.leadingAnchor),
             definitionLabel.trailingAnchor.constraint(equalTo: labelsStackView.trailingAnchor),
-            definitionLabel.bottomAnchor.constraint(equalTo: labelsStackView.bottomAnchor, constant: -55)
+            definitionLabel.bottomAnchor.constraint(equalTo: labelsStackView.bottomAnchor, constant: -90)
         ])
     }
     

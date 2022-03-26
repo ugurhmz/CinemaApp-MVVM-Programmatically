@@ -103,9 +103,9 @@ extension MainVC {
             searchBar.sizeToFit()
             searchBar.showsCancelButton = true
             searchBar.becomeFirstResponder() // icona tıklayınca searchbar focus
-            searchBar.tintColor = .black
-            searchBar.searchTextField.backgroundColor = .white
-            searchBar.searchTextField.textColor = .black
+            searchBar.tintColor = .white
+            searchBar.searchTextField.backgroundColor = .lightGray.withAlphaComponent(0.8)
+            searchBar.searchTextField.textColor = .white
 
             navigationItem.rightBarButtonItem = nil
             navigationItem.titleView = searchBar
