@@ -30,6 +30,8 @@ class HomeBottomListCell: UICollectionViewCell {
         label.font = .systemFont(ofSize: 23, weight: .bold)
         label.text = "Spider Man"
         label.textColor = .white
+        label.numberOfLines = 2
+        label.lineBreakMode = .byWordWrapping
         
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -136,7 +138,7 @@ extension HomeBottomListCell {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 20),
-            //titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -35),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -35),
             //titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -50)
         ])
     }
@@ -163,8 +165,8 @@ extension HomeBottomListCell {
     private func setGoToDetailIconConstraints() {
         NSLayoutConstraint.activate([
             goToDetailIcon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            goToDetailIcon.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-            goToDetailIcon.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 45),
+            goToDetailIcon.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+           // goToDetailIcon.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 45),
             goToDetailIcon.heightAnchor.constraint(equalToConstant: 35)
            
         ])
@@ -174,8 +176,7 @@ extension HomeBottomListCell {
 
 
 
-//MARK: - Extension
-
+//MARK: - UIImageView Extension
 //extension UIImageView {
 //    func downloaded(from url: URL, contentMode mode: ContentMode = .scaleAspectFit) {
 //        contentMode = mode

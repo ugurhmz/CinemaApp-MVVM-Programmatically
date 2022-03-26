@@ -13,7 +13,7 @@ protocol HomeViewModelProtocol {
     func changeLoading()
     
     
-    var movieInfoList: [MovieInfo] { get set }
+    var movieNowPlayingList: [MovieInfo] { get set }
     var movieWebService: MovieService {get}
     var movieOutPut: MovieOutPutProtocol? {get}
     
@@ -26,7 +26,7 @@ final class HomeViewModel: HomeViewModelProtocol {
     
     private var isLoading = false
     
-    var movieInfoList: [MovieInfo] = []
+    var movieNowPlayingList: [MovieInfo] = []
     var movieWebService: MovieService
     var movieOutPut: MovieOutPutProtocol?
     
@@ -54,8 +54,8 @@ final class HomeViewModel: HomeViewModelProtocol {
                 return
             }
             
-            self?.movieInfoList = response ?? []
-            self?.movieOutPut?.saveMovieDatas(listValues: self?.movieInfoList ?? [])
+            self?.movieNowPlayingList = response ?? []
+            self?.movieOutPut?.saveMovieDatas(listValues: self?.movieNowPlayingList ?? [])
             
         }
     }

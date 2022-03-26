@@ -17,7 +17,7 @@ protocol MovieOutPutProtocol {
 
 class MainVC: UIViewController {
 
-    private lazy var movieList: [MovieInfo] = []
+    private lazy var homeMovieNowPlayingList: [MovieInfo] = []
     lazy var viewModel = HomeViewModel()
     private let indicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
@@ -32,7 +32,7 @@ class MainVC: UIViewController {
       
         cv.showsHorizontalScrollIndicator = false
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.backgroundColor = .black
+        cv.backgroundColor = .lightGray
         
         //register cells
         cv.register(HomeTopCell.self,
@@ -78,7 +78,7 @@ extension MainVC: MovieOutPutProtocol {
     }
     
     func saveMovieDatas(listValues: [MovieInfo]) {
-        self.movieList = listValues
+        self.homeMovieNowPlayingList = listValues
         generalCollectionView.reloadData()
     }
     
@@ -121,7 +121,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
             return 1
         }
         
-        return  self.movieList.count
+        return  self.homeMovieNowPlayingList.count
     }
     
     
@@ -134,7 +134,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
             let topCell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: HomeTopCell.identifier, for: indexPath) as! HomeTopCell
             
-            topCell.setX(model: movieList)
+            topCell.setX(model: homeMovieNowPlayingList)
             
             return topCell
         }
@@ -151,7 +151,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
         bottomListCell.layer.shadowOffset = .zero
         bottomListCell.layer.shadowOpacity = 0.8
         
-        bottomListCell.saveModel(model: movieList[indexPath.item])
+        bottomListCell.saveModel(model: homeMovieNowPlayingList[indexPath.item])
        
         
         return bottomListCell
