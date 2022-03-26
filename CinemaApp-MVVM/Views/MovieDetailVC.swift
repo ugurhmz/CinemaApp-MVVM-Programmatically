@@ -9,7 +9,7 @@ import UIKit
 
 class MovieDetailVC: UIViewController {
 
-    
+   
     // img
     private let imageView: UIImageView = {
         let iv = UIImageView()
@@ -71,12 +71,15 @@ class MovieDetailVC: UIViewController {
     // movie definition
     private let definitionLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 17, weight: .medium)
-        label.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also th"
+        label.font = .systemFont(ofSize: 15, weight: .medium)
+        label.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also thLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also thLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also thLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also thLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also thLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also th"
         label.textColor = .white
-        label.numberOfLines = .max
+        label.numberOfLines = 15
+      
+        label.layer.borderWidth = 3
+        label.layer.borderColor = UIColor.red.cgColor
         label.translatesAutoresizingMaskIntoConstraints = false
-        
+       
         return label
     }()
     
@@ -85,7 +88,11 @@ class MovieDetailVC: UIViewController {
         layout.scrollDirection = .horizontal
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
-        
+        cv.backgroundColor = .clear
+      
+       
+        layout.minimumLineSpacing = 5
+        cv.register(DetailBottomCell.self, forCellWithReuseIdentifier: DetailBottomCell.identifier)
         
         cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
@@ -115,7 +122,7 @@ class MovieDetailVC: UIViewController {
     }
     
     func setupViews() {
-        let subViewArr = [imageView, imbdbIcon, starIcon, voteImdb, releaseLabel, titleLabel, definitionLabel, underPictureStackView]
+        let subViewArr = [imageView, imbdbIcon, starIcon, voteImdb, releaseLabel, titleLabel, definitionLabel, underPictureStackView, bottomCollectionView]
         
         let arrangedStackViewArr = [imbdbIcon, starIcon, voteImdb, releaseLabel]
         
@@ -128,6 +135,8 @@ class MovieDetailVC: UIViewController {
         arrangedStackViewArr.forEach { (item) in
             underPictureStackView.addArrangedSubview(item)
         }
+        bottomCollectionView.delegate = self
+        bottomCollectionView.dataSource = self
         
         setConstraints()
     }
@@ -140,10 +149,65 @@ class MovieDetailVC: UIViewController {
         setStarIconConstraints()
         setTitleConstraints()
         setDefinitionConstraints()
+        setbottomCollectionView()
     }
     
    
 }
+
+// Delegate, DataSource
+extension MovieDetailVC: UICollectionViewDelegate, UICollectionViewDataSource{
+    
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+   
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = bottomCollectionView.dequeueReusableCell(withReuseIdentifier: DetailBottomCell.identifier, for: indexPath) as! DetailBottomCell
+        
+        
+        return cell
+    }
+    
+}
+
+extension MovieDetailVC : UICollectionViewDelegateFlowLayout {
+    
+    // Her hücre boyutu, width, height
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+      
+        // Üst section için
+        return CGSize(width: 200, height: view.frame.height - 10)
+     
+    }
+    
+    
+    
+    
+    // Hücreler arası boşluk
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+       
+        return UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 20
+    }
+    
+}
+
 
 
 //MARK: - Constraints
@@ -155,7 +219,7 @@ extension MovieDetailVC {
             imageView.topAnchor.constraint(equalTo: view.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 400)
+            imageView.heightAnchor.constraint(equalToConstant: 300)
         ])
     }
     
@@ -213,4 +277,16 @@ extension MovieDetailVC {
          
         ])
     }
+    
+    private func setbottomCollectionView(){
+        NSLayoutConstraint.activate([
+            //bottomCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -15),
+            bottomCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bottomCollectionView.heightAnchor.constraint(equalToConstant: 100),
+            bottomCollectionView.topAnchor.constraint(equalTo: definitionLabel.bottomAnchor, constant: 35)
+        ])
+    }
+    
+    
 }
