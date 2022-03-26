@@ -99,7 +99,7 @@ class HomeBottomListCell: UICollectionViewCell {
     }
     
     
-    func saveModel(model: MovieInfo) {
+    func saveModel(model: MovieNowPlayingInfo) {
         
         
         // /qsdjk9oAKSQMWs0Vt5Pyfh6O4GZ.jpg

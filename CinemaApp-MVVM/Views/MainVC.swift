@@ -10,7 +10,7 @@ import UIKit
 
 protocol MovieOutPutProtocol {
     func changeLoading(isLoad: Bool)
-    func saveMovieNowPlayingDatas(listValues: [MovieInfo])
+    func saveMovieNowPlayingDatas(listValues: [MovieNowPlayingInfo])
     func saveMovieUpComingPlayingDatas(listValues: [MovieUpComingInfo])
 }
 
@@ -18,12 +18,12 @@ protocol MovieOutPutProtocol {
 
 class MainVC: UIViewController {
 
-    private lazy var homeMovieNowPlayingList: [MovieInfo] = []
+    private lazy var homeMovieNowPlayingList: [MovieNowPlayingInfo] = []
     private lazy var homeMovieUpComingList: [MovieUpComingInfo] = []
     lazy var viewModel = HomeViewModel()
     private let indicator: UIActivityIndicatorView = UIActivityIndicatorView()
-    
-    
+    var searchMode = false
+    var filteredList = [MovieNowPlayingInfo]()
     
     
     // General CollectionView
@@ -44,6 +44,15 @@ class MainVC: UIViewController {
         
         return cv
     }()
+    
+    // searchbar
+    lazy var searchController: UISearchController = {
+       let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.tintColor = .black
+        searchController.hidesNavigationBarDuringPresentation = false
+        return searchController
+    }()
+    
     
     
     
@@ -67,11 +76,77 @@ class MainVC: UIViewController {
         generalCollectionView.dataSource = self
         
         indicator.startAnimating()
+        configureSearchBarButton()
+     
     }
 
 
 }
 
+
+//MARK: - SearchBar
+extension MainVC {
+    
+    func configureSearchBarButton(){
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(showSearchBar))
+    }
+
+    @objc func showSearchBar() {
+        searchingFunc(shouldShow: true)
+    }
+
+    @objc func searchingFunc(shouldShow: Bool) {
+        if shouldShow {
+            // searchBar
+            let searchBar = UISearchBar()
+            searchBar.delegate = self
+            searchBar.sizeToFit()
+            searchBar.showsCancelButton = true
+            searchBar.becomeFirstResponder() // icona tıklayınca searchbar focus
+            searchBar.tintColor = .black
+            searchBar.searchTextField.backgroundColor = .white
+            searchBar.searchTextField.textColor = .black
+
+            navigationItem.rightBarButtonItem = nil
+            navigationItem.titleView = searchBar
+
+        } else {
+            navigationItem.titleView = nil
+            configureSearchBarButton()
+            searchMode = false
+            generalCollectionView.reloadData()
+        }
+    }
+
+}
+
+
+//MARK: - SearchBarDelegate
+extension MainVC: UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchingFunc(shouldShow: false)
+    }
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty || searchBar.text == nil {
+            searchMode = false
+            generalCollectionView.reloadData()
+            view.endEditing(true)
+        } else {    // search mode ON
+
+            searchMode = true
+            
+            filteredList = homeMovieNowPlayingList.filter({
+                $0.title.lowercased().contains(searchText.lowercased()) as! Bool
+            })
+
+            generalCollectionView.reloadData()
+        }
+    }
+    
+}
 
 //MARK: - MovieOutPutProtocol
 extension MainVC: MovieOutPutProtocol {
@@ -84,7 +159,7 @@ extension MainVC: MovieOutPutProtocol {
     }
     
     // now_playing
-    func saveMovieNowPlayingDatas(listValues: [MovieInfo]) {
+    func saveMovieNowPlayingDatas(listValues: [MovieNowPlayingInfo]) {
         self.homeMovieNowPlayingList = listValues
         generalCollectionView.reloadData()
     }
@@ -134,7 +209,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
             return 1
         }
         
-        return  self.homeMovieNowPlayingList.count
+        return searchMode ? filteredList.count :   self.homeMovieNowPlayingList.count
     }
     
     
@@ -164,6 +239,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
         bottomListCell.layer.shadowOffset = .zero
         bottomListCell.layer.shadowOpacity = 0.8
         
+        searchMode ?   bottomListCell.saveModel(model: filteredList[indexPath.item])  :
         bottomListCell.saveModel(model: homeMovieNowPlayingList[indexPath.item])
        
         

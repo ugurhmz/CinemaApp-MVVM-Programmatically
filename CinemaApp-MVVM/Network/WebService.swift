@@ -21,7 +21,7 @@ final class MovieService {
     let languageAndPage = "&language=en-US&page=1#"
     let myAPIKey = "6fe8370265c396656c58d7dd9ff3e712"
     
-    typealias cHandler = ([MovieInfo]?,String?) -> Void
+    typealias cHandler = ([MovieNowPlayingInfo]?,String?) -> Void
     typealias cUpComingHandler = ([MovieUpComingInfo]?, String?) -> Void
     typealias detailHandler = ([MovieDetailsModel]?,String?) -> Void
     
@@ -31,7 +31,7 @@ final class MovieService {
         let endPoint = apiBaseUrl + "\(movieType.rawValue)?api_key=\(myAPIKey)" + languageAndPage
         
         let request = AF.request(endPoint)
-        request.validate().responseDecodable(of: MovieModel.self) { response in
+        request.validate().responseDecodable(of: MovieNowPlayingModel.self) { response in
             
             switch response.result {
             case .success(let movieInfos):

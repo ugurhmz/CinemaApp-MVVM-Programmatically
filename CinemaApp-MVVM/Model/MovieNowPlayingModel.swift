@@ -9,10 +9,10 @@ import Foundation
 
 
 
-struct MovieModel: Codable {
+struct MovieNowPlayingModel: Codable {
     let dates: Dates?
     let page: Int
-    let results: [MovieInfo]
+    let results: [MovieNowPlayingInfo]
     let totalPages, totalResults: Int
 
     enum CodingKeys: String, CodingKey {
@@ -22,7 +22,7 @@ struct MovieModel: Codable {
     }
 }
 
-struct MovieInfo: Codable {
+struct MovieNowPlayingInfo: Codable {
     let adult: Bool
     let backdropPath: String
     let genreIDS: [Int]
