@@ -109,7 +109,7 @@ class HomeBottomListCell: UICollectionViewCell {
                                   URL(string: randomImage)!)
         //imageView.downloaded(from: completePath, contentMode : .scaleAspectFill)
         definitionLabel.text = "\(model.overview)"
-       
+        releaseDateLabel.text = "\(model.releaseDate)"
         
     }
     

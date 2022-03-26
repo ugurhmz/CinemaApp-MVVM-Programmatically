@@ -9,11 +9,11 @@ import UIKit
 import AlamofireImage
 
 class HomeTopCell: UICollectionViewCell {
-    var myModel: MovieInfo?
+    
     var mvList = [MovieInfo]()
     
     static var identifier = "HomeTopCell"
-    var albumArr = ["a1","a2","a3","a4","a5"]
+    //var albumArr = ["a1","a2","a3","a4","a5"]
     
     // topGeneralCollectionView
     private let topGeneralCollectionView: UICollectionView = {
@@ -68,13 +68,22 @@ class HomeTopCell: UICollectionViewCell {
     }
     
     
-    func saveModel(model: MovieInfo) {
-        myModel = model
-    }
-    
-    
     
 }
+
+extension HomeTopCell {
+    
+    func setX(model: [MovieInfo]) {
+        
+        self.mvList = model
+        
+        pageControl.numberOfPages = mvList.count
+        
+        topGeneralCollectionView.reloadData()
+    }
+}
+
+
 
 
 //MARK: - Constraitns
@@ -108,19 +117,25 @@ extension HomeTopCell {
 extension HomeTopCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     
-    // paging
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView,
-                                   withVelocity velocity: CGPoint,
-                                   targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let x = targetContentOffset.pointee.x
-        pageControl.currentPage = Int(x / topGeneralCollectionView.frame.width)
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        self.pageControl.currentPage = indexPath.row
     }
+    
+    
+//    // paging
+//    func scrollViewWillEndDragging(_ scrollView: UIScrollView,
+//                                   withVelocity velocity: CGPoint,
+//                                   targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//        let x = targetContentOffset.pointee.x
+//        pageControl.currentPage = Int(x / topGeneralCollectionView.frame.width)
+//    }
     
     
     // numberOfItemsInSection
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return mvList.count
+        
+        return mvList.isEmpty == true ? 0 : mvList.count
     }
     
     
@@ -129,13 +144,13 @@ extension HomeTopCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+       
         let cell = topGeneralCollectionView.dequeueReusableCell(withReuseIdentifier: HomeTopSliderCell.identifier, for: indexPath) as! HomeTopSliderCell
         
         //cell.backgroundColor = indexPath.row % 2 == 0 ? .purple : .systemPink
        // cell.mvImages = albumArr[indexPath.item]
-        
-        cell.setupMy(model: mvList[indexPath.item])
-        
+       
+        cell.saveModel(model: mvList[indexPath.row])
         
         return cell
     }

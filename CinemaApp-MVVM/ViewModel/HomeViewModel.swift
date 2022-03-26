@@ -55,7 +55,6 @@ final class HomeViewModel: HomeViewModelProtocol {
             }
             
             self?.movieInfoList = response ?? []
-            print("RESPONSE -> ",self?.movieInfoList ?? "empty")
             self?.movieOutPut?.saveMovieDatas(listValues: self?.movieInfoList ?? [])
             
         }

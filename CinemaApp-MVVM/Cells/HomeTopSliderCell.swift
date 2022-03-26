@@ -6,18 +6,20 @@
 //
 
 import UIKit
+import Alamofire
 
 class HomeTopSliderCell: UICollectionViewCell {
     
     static var identifier = "HomeTopSliderCell"
+    private let randomImage: String = "https://picsum.photos/200/300"
     
-    var mvImages: String? {
-        didSet {
-            if let img = mvImages {
-                movieImageView.image = UIImage(named: img)
-            }
-        }
-    }
+//    var mvImages: String? {
+//        didSet {
+//            if let img = mvImages {
+//                movieImageView.image = UIImage(named: img)
+//            }
+//        }
+//    }
     
     
     
@@ -25,6 +27,7 @@ class HomeTopSliderCell: UICollectionViewCell {
     private let movieImageView: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage()
+        iv.contentMode = .scaleAspectFill
         iv.translatesAutoresizingMaskIntoConstraints = false
         
         return iv
@@ -113,16 +116,28 @@ class HomeTopSliderCell: UICollectionViewCell {
         
     }
     
-    func setupMy(model: MovieInfo) {
-        titleLabel.text = "\(model.title)"
-    }
-    
-    
     required init?(coder: NSCoder) {
         fatalError("not imp")
     }
     
 }
+
+extension HomeTopSliderCell {
+    
+    public func saveModel(model: MovieInfo){
+        let defaultLink = "http://image.tmdb.org/t/p/w500"
+        let completePath = defaultLink + model.backdropPath
+
+        titleLabel.text = "\(model.title)"
+        movieImageView.af.setImage(withURL: URL(string: completePath ) ??
+                                  URL(string: randomImage)!)
+    
+        titleLabel.text = "\(model.originalTitle)"
+        definitionLabel.text = "\(model.overview)"
+    }
+}
+
+
 
 
 
