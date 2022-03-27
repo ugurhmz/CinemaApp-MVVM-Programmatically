@@ -115,6 +115,16 @@ class MovieDetailVC: UIViewController {
     }()
     
     
+    private let smilarLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 22, weight: .bold)
+        label.text = "Similar Videos"
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,7 +132,7 @@ class MovieDetailVC: UIViewController {
     }
     
     func setupViews() {
-        let subViewArr = [imageView, imbdbIcon, starIcon, voteImdb, releaseLabel, titleLabel, definitionLabel, underPictureStackView, bottomCollectionView]
+        let subViewArr = [imageView, imbdbIcon, starIcon, voteImdb, releaseLabel, titleLabel, definitionLabel, underPictureStackView, bottomCollectionView, smilarLabel]
         
         let arrangedStackViewArr = [imbdbIcon, starIcon, voteImdb, releaseLabel]
         
@@ -137,7 +147,7 @@ class MovieDetailVC: UIViewController {
         }
         bottomCollectionView.delegate = self
         bottomCollectionView.dataSource = self
-        
+        bottomCollectionView.backgroundColor = .clear
         setConstraints()
     }
     
@@ -167,7 +177,7 @@ extension MovieDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
         1
     }
     
-    // Total number of ells
+    // Total number of cells
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         return 15
@@ -194,8 +204,8 @@ extension MovieDetailVC : UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
       
         
-        return CGSize(width: (bottomCollectionView.frame.width / 3) - 20,
-                      height: bottomCollectionView.frame.height / 1.2 - 60)
+        return CGSize(width: (bottomCollectionView.frame.width / 2.90) - 20,
+                      height: bottomCollectionView.frame.height / 1 - 60)
      
     }
     
@@ -207,12 +217,18 @@ extension MovieDetailVC : UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
        
-        return UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 0)
+        return UIEdgeInsets(top: 0, left: 10, bottom: 5, right: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 5
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+  
     
 }
 
@@ -288,13 +304,23 @@ extension MovieDetailVC {
     
     private func setbottomCollectionView(){
         NSLayoutConstraint.activate([
-            bottomCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -15),
+            
+            
+           // smilarLabel.topAnchor.constraint(equalTo: definitionLabel.bottomAnchor, constant: 5),
+            smilarLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            smilarLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            smilarLabel.bottomAnchor.constraint(equalTo: bottomCollectionView.topAnchor,constant: -5),
+            
+            
+            
+            bottomCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: 5),
             bottomCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bottomCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             //bottomCollectionView.heightAnchor.constraint(equalToConstant: 100),
-            bottomCollectionView.topAnchor.constraint(equalTo: definitionLabel.bottomAnchor, constant: 20)
+            bottomCollectionView.topAnchor.constraint(equalTo: definitionLabel.bottomAnchor, constant: 70)
         ])
     }
+    
     
     
 }
