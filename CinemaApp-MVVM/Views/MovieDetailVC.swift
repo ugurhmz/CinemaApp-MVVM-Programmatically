@@ -72,7 +72,7 @@ class MovieDetailVC: UIViewController {
     private let definitionLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .medium)
-        label.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also thLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also thLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also thLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also thLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also thLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also th"
+        label.text = "Pil, a little vagabond girl, lives on the streets of the medieval city of Roc-en-Brume, along with her three tame weasels. She survives of food stolen from the castle of the sinister Regent Tristain. One day, to escape his guards, Pil disguises herself as a princess. Thus she embarks upon a mad, delirious adventure, together with Crobar, a big clumsy guard who thinks she's a noble, and Rigolin, a young crackpot jester. Pil is going to have to save Roland, rightful heir to the throne under the curse of a spell. This adventure will turn the entire kingdom upside down, and teach Pil that nobility can be found in all of us."
         label.textColor = .white
         label.numberOfLines = 15
       
@@ -153,18 +153,24 @@ class MovieDetailVC: UIViewController {
     }
     
    
+    
+   
 }
 
 // Delegate, DataSource
-extension MovieDetailVC: UICollectionViewDelegate, UICollectionViewDataSource{
+extension MovieDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
+  
+ 
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         1
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+    // Total number of ells
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        return 15
     }
    
     
@@ -173,6 +179,7 @@ extension MovieDetailVC: UICollectionViewDelegate, UICollectionViewDataSource{
         
         let cell = bottomCollectionView.dequeueReusableCell(withReuseIdentifier: DetailBottomCell.identifier, for: indexPath) as! DetailBottomCell
         
+      
         
         return cell
     }
@@ -186,8 +193,9 @@ extension MovieDetailVC : UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
       
-        // Üst section için
-        return CGSize(width: 200, height: view.frame.height - 10)
+        
+        return CGSize(width: (bottomCollectionView.frame.width / 3) - 20,
+                      height: bottomCollectionView.frame.height / 1.2 - 60)
      
     }
     
@@ -203,7 +211,7 @@ extension MovieDetailVC : UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        return 5
     }
     
 }
@@ -280,11 +288,11 @@ extension MovieDetailVC {
     
     private func setbottomCollectionView(){
         NSLayoutConstraint.activate([
-            //bottomCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -15),
+            bottomCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -15),
             bottomCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bottomCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bottomCollectionView.heightAnchor.constraint(equalToConstant: 100),
-            bottomCollectionView.topAnchor.constraint(equalTo: definitionLabel.bottomAnchor, constant: 35)
+            //bottomCollectionView.heightAnchor.constraint(equalToConstant: 100),
+            bottomCollectionView.topAnchor.constraint(equalTo: definitionLabel.bottomAnchor, constant: 20)
         ])
     }
     

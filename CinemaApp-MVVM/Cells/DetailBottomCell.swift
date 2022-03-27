@@ -14,11 +14,11 @@ class DetailBottomCell: UICollectionViewCell {
     
     let imageView: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "a4")
-        
-        iv.layer.cornerRadius = 35
-        iv.clipsToBounds = true
+        iv.image = UIImage(named: "a3")
         iv.contentMode = .scaleToFill
+        iv.layer.cornerRadius = 15
+        iv.clipsToBounds = true
+       
        
       
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -28,8 +28,7 @@ class DetailBottomCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        imageView.layer.cornerRadius = 50
-        imageView.clipsToBounds = true
+       
     }
     
     
