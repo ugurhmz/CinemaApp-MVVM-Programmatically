@@ -30,7 +30,7 @@ class DetailBottomCell: UICollectionViewCell {
         label.font = .systemFont(ofSize: 15)
         label.text = "Fight CLub ( 2013) "
         label.textColor = .white
-        label.numberOfLines = 2
+        label.numberOfLines = 3
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

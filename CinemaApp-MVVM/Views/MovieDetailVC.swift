@@ -25,7 +25,7 @@ class MovieDetailVC: UIViewController {
     lazy var viewModel = DetailViewModel()
     private let indicator: UIActivityIndicatorView = UIActivityIndicatorView()
     var myId = 5
-    
+    private let randomImage: String = "https://picsum.photos/200/300"
     
    
     // img
@@ -49,8 +49,8 @@ class MovieDetailVC: UIViewController {
     // star icon
     private let starIcon: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(systemName:"star.fill")
-        iv.contentMode = .scaleToFill
+        iv.image = UIImage(named:"staricon")
+        iv.contentMode = .scaleAspectFit
         
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
@@ -59,7 +59,8 @@ class MovieDetailVC: UIViewController {
     //imdbVote
     private let voteImdb: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 17, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -67,7 +68,8 @@ class MovieDetailVC: UIViewController {
     // releaseDate
     private let releaseLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 18, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -89,13 +91,10 @@ class MovieDetailVC: UIViewController {
     // movie definition
     private let definitionLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .medium)
+        label.font = .systemFont(ofSize: 16, weight: .medium)
         label.text = "Pil, a little vagabond girl, lives on the streets of the medieval city of Roc-en-Brume, along with her three tame weasels. She survives of food stolen from the castle of the sinister Regent Tristain. One day, to escape his guards, Pil disguises herself as a princess. Thus she embarks upon a mad, delirious adventure, together with Crobar, a big clumsy guard who thinks she's a noble, and Rigolin, a young crackpot jester. Pil is going to have to save Roland, rightful heir to the throne under the curse of a spell. This adventure will turn the entire kingdom upside down, and teach Pil that nobility can be found in all of us."
         label.textColor = .white
         label.numberOfLines = 15
-      
-        label.layer.borderWidth = 3
-        label.layer.borderColor = UIColor.red.cgColor
         label.translatesAutoresizingMaskIntoConstraints = false
        
         return label
@@ -124,8 +123,8 @@ class MovieDetailVC: UIViewController {
         stackView.distribution = .fillEqually
         stackView.alignment = .leading
       
-        stackView.layer.borderWidth = 3
-        stackView.layer.borderColor = UIColor.red.cgColor
+//        stackView.layer.borderWidth = 3
+//        stackView.layer.borderColor = UIColor.red.cgColor
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -200,7 +199,28 @@ extension MovieDetailVC: DetailOutPutProtocol {
     func saveMovieDetailDatas(listValues: MovieDetailsModel) {
         
         DispatchQueue.main.async {
+            
             self.detailsMv = listValues
+            let mvInfos = self.detailsMv
+            
+            let defaultLink = "http://image.tmdb.org/t/p/w500"
+            var mvPref: String = ""
+            if let mypath = self.detailsMv?.posterPath {
+                mvPref = mypath
+            }
+            
+            let completePath = defaultLink + mvPref
+            
+            self.imageView.af.setImage(withURL: URL(string: completePath ) ??
+                                  URL(string: self.randomImage)!)
+            
+            self.titleLabel.text = "\(mvInfos?.title ?? "-") ( \(mvInfos?.releaseDate?.prefix(4)  ?? "-") )"
+            
+            
+            self.definitionLabel.text =  "\(mvInfos?.overview ?? "-")"
+            
+            self.voteImdb.text = "\(mvInfos?.voteAverage ?? 0.0)/10"
+            self.releaseLabel.text = "\(mvInfos?.releaseDate ?? "-")"
         }
     }
     
@@ -324,10 +344,19 @@ extension MovieDetailVC {
     // star cons
     private func setStarIconConstraints(){
         NSLayoutConstraint.activate([
-            starIcon.topAnchor.constraint(equalTo: imbdbIcon.topAnchor),
-            starIcon.leadingAnchor.constraint(equalTo: underPictureStackView.trailingAnchor, constant: 2),
-            //starIcon.bottomAnchor.constraint(equalTo: underPictureStackView.bottomAnchor, constant: -55),
-            imbdbIcon.heightAnchor.constraint(equalToConstant: 5),
+            starIcon.topAnchor.constraint(equalTo: underPictureStackView.topAnchor, constant: -3),
+            //starIcon.leadingAnchor.constraint(equalTo: underPictureStackView.trailingAnchor, constant: 2),
+           
+            starIcon.bottomAnchor.constraint(equalTo: underPictureStackView.bottomAnchor, constant: -20),
+            
+            //imbdbIcon.heightAnchor.constraint(equalToConstant: 5),
+            imbdbIcon.widthAnchor.constraint(equalToConstant: 5),
+            
+            
+            
+            voteImdb.topAnchor.constraint(equalTo: underPictureStackView.topAnchor),
+            voteImdb.leadingAnchor.constraint(equalTo: starIcon.trailingAnchor, constant: -33),
+            starIcon.bottomAnchor.constraint(equalTo: underPictureStackView.bottomAnchor, constant: -20),
             
         ])
     }
@@ -349,7 +378,7 @@ extension MovieDetailVC {
             definitionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
             definitionLabel.leadingAnchor.constraint(equalTo: underPictureStackView.leadingAnchor),
             definitionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-         
+        
         ])
     }
     
