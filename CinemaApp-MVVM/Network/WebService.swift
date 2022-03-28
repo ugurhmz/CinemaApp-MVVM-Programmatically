@@ -23,7 +23,7 @@ final class MovieService {
     
     typealias cHandler = ([MovieNowPlayingInfo]?,String?) -> Void
     typealias cUpComingHandler = ([MovieUpComingInfo]?, String?) -> Void
-    typealias detailHandler = ([MovieDetailsModel]?,String?) -> Void
+    typealias detailHandler = (MovieDetailsModel?,String?) -> Void
     
     
     //MARK: -  getMovies with types
@@ -57,4 +57,40 @@ final class MovieService {
             }
         }
     }
+    
+    
+    //MARK: - fetch Movie Details
+    func fetchDetailsMovie(id: Int, completion: @escaping detailHandler) {
+        let endPoint = apiBaseUrl + "\(id)?api_key=\(myAPIKey)" + languageAndPage
+        
+        let request = AF.request(endPoint)
+        request.validate().responseDecodable(of: MovieDetailsModel.self) { response in
+            
+            switch response.result {
+            case .success(let movieDetailInfos):
+                completion(movieDetailInfos, nil)
+            case .failure(let error):
+                completion(nil, error.localizedDescription)
+            }
+        }
+    }
+    
+    
+    
+    //MARK: - fetch Similar Movies
+    func fetchSimilarMovies(id: Int, completion: @escaping cHandler){
+        let endPoint = apiBaseUrl + "\(id)/similar?api_key=\(myAPIKey)" + languageAndPage
+        
+        let req = AF.request(endPoint)
+        req.validate().responseDecodable(of: MovieNowPlayingModel.self) { res in
+            
+            switch res.result {
+            case .success(let movieInfos):
+                completion(movieInfos.results, nil)
+            case .failure(let error):
+                completion(nil, error.localizedDescription)
+            }
+        }
+    }
+    
 }

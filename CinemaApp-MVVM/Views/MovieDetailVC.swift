@@ -7,8 +7,26 @@
 
 import UIKit
 
+
+protocol DetailOutPutProtocol {
+    func changeLoading(isLoad: Bool)
+    func saveMovieDetailDatas(listValues: MovieDetailsModel)
+    func saveSimilarMovieDatas(listValues: [MovieNowPlayingInfo])
+}
+
+
+
+
 class MovieDetailVC: UIViewController {
 
+    var detailsMv: MovieDetailsModel?
+    
+    private lazy var detailMovieSimilarList: [MovieNowPlayingInfo] = []
+    lazy var viewModel = DetailViewModel()
+    private let indicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    var myId = 5
+    
+    
    
     // img
     private let imageView: UIImageView = {
@@ -129,6 +147,12 @@ class MovieDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        
+        
+        //viewModel Delegate
+        viewModel.setDetailDelegate(output: self)
+        viewModel.fetchMovieDetailItems(movieId: myId)
+        viewModel.fechMovieSimilarItems(movieId: myId)
     }
     
     func setupViews() {
@@ -162,10 +186,36 @@ class MovieDetailVC: UIViewController {
         setbottomCollectionView()
     }
     
-   
-    
-   
 }
+
+
+//MARK: - DetailOutPutProtocol
+extension MovieDetailVC: DetailOutPutProtocol {
+    
+    func changeLoading(isLoad: Bool) {
+        isLoad ? indicator.startAnimating() : indicator.stopAnimating()
+    }
+    
+    // details
+    func saveMovieDetailDatas(listValues: MovieDetailsModel) {
+        
+        DispatchQueue.main.async {
+            self.detailsMv = listValues
+        }
+    }
+    
+    // similar movies
+    func saveSimilarMovieDatas(listValues: [MovieNowPlayingInfo]) {
+        self.detailMovieSimilarList = listValues
+        bottomCollectionView.reloadData()
+    }
+    
+    
+}
+
+
+
+
 
 // Delegate, DataSource
 extension MovieDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -180,18 +230,19 @@ extension MovieDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
     // Total number of cells
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return detailMovieSimilarList.count
     }
    
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = bottomCollectionView.dequeueReusableCell(withReuseIdentifier: DetailBottomCell.identifier, for: indexPath) as! DetailBottomCell
+        let bottomCell = bottomCollectionView.dequeueReusableCell(withReuseIdentifier: DetailBottomCell.identifier, for: indexPath) as! DetailBottomCell
         
+        bottomCell.setUp(model: detailMovieSimilarList[indexPath.item])
       
         
-        return cell
+        return bottomCell
     }
     
 }

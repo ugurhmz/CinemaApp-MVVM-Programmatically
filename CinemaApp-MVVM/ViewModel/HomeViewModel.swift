@@ -83,6 +83,9 @@ final class HomeViewModel: HomeViewModelProtocol {
     
     
     
+    
+    
+    
     func changeLoading() {
         isLoading = !isLoading
         movieOutPut?.changeLoading(isLoad: isLoading)
