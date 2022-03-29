@@ -258,6 +258,10 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
+       
+        if indexPath.section == 0 {
+            print("clicked")
+        }
         
         print("gelenid", homeMovieNowPlayingList[indexPath.item].id)
         let movieDetailVC = MovieDetailVC()

@@ -155,9 +155,7 @@ extension HomeTopCell: UICollectionViewDelegate, UICollectionViewDataSource {
         
         return cell
     }
-    
-  
-    
+   
 }
 
 
