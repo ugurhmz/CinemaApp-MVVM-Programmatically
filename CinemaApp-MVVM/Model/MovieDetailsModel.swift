@@ -9,7 +9,7 @@ struct MovieDetailsModel : Decodable {
     public var adult : Bool?
     public var backdropPath : String?
     public var belongsToCollection : MovieDetailBelongsCollection?
-    public var budget : Int?
+    public var budget : Int64?
     public var genres : [MovieDetailGenres]?
     public var id : Int?
     public var homepage : String?

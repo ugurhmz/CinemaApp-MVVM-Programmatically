@@ -49,8 +49,9 @@ class MovieDetailVC: UIViewController {
     // star icon
     private let starIcon: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named:"staricon")
-        iv.contentMode = .scaleAspectFit
+        iv.image = UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysOriginal)
+        iv.tintColor = .yellow
+        iv.contentMode = .scaleAspectFill
         
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
@@ -120,8 +121,8 @@ class MovieDetailVC: UIViewController {
     private let underPictureStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.alignment = .leading
+        //stackView.distribution = .fillEqually
+        //stackView.alignment = .leading
       
 //        stackView.layer.borderWidth = 3
 //        stackView.layer.borderColor = UIColor.red.cgColor
@@ -235,8 +236,6 @@ extension MovieDetailVC: DetailOutPutProtocol {
 
 
 
-
-
 // Delegate, DataSource
 extension MovieDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -260,7 +259,7 @@ extension MovieDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
         let bottomCell = bottomCollectionView.dequeueReusableCell(withReuseIdentifier: DetailBottomCell.identifier, for: indexPath) as! DetailBottomCell
         
         bottomCell.setUp(model: detailMovieSimilarList[indexPath.item])
-      
+       
         
         return bottomCell
     }
@@ -276,7 +275,7 @@ extension MovieDetailVC : UICollectionViewDelegateFlowLayout {
       
         
         return CGSize(width: (bottomCollectionView.frame.width / 2.90) - 20,
-                      height: bottomCollectionView.frame.height / 1 - 60)
+                      height: bottomCollectionView.frame.height)
      
     }
     
@@ -334,9 +333,10 @@ extension MovieDetailVC {
         NSLayoutConstraint.activate([
             imbdbIcon.topAnchor.constraint(equalTo: underPictureStackView.topAnchor),
             imbdbIcon.leadingAnchor.constraint(equalTo: underPictureStackView.leadingAnchor),
-            imbdbIcon.trailingAnchor.constraint(equalTo: starIcon.leadingAnchor),
-            imbdbIcon.bottomAnchor.constraint(equalTo: underPictureStackView.bottomAnchor, constant: -25),
-            //imbdbIcon.heightAnchor.constraint(equalToConstant: 10)
+            imbdbIcon.trailingAnchor.constraint(equalTo: starIcon.leadingAnchor, constant: -20),
+            //imbdbIcon.bottomAnchor.constraint(equalTo: underPictureStackView.bottomAnchor, constant: -5),
+          //  imbdbIcon.heightAnchor.constraint(equalToConstant: 10)
+            imbdbIcon.widthAnchor.constraint(equalToConstant: 60)
         ])
     }
     
@@ -345,18 +345,22 @@ extension MovieDetailVC {
     private func setStarIconConstraints(){
         NSLayoutConstraint.activate([
             starIcon.topAnchor.constraint(equalTo: underPictureStackView.topAnchor, constant: -3),
-            //starIcon.leadingAnchor.constraint(equalTo: underPictureStackView.trailingAnchor, constant: 2),
-           
-            starIcon.bottomAnchor.constraint(equalTo: underPictureStackView.bottomAnchor, constant: -20),
-            
-            //imbdbIcon.heightAnchor.constraint(equalToConstant: 5),
-            imbdbIcon.widthAnchor.constraint(equalToConstant: 5),
-            
-            
-            
+            starIcon.bottomAnchor.constraint(equalTo: underPictureStackView.bottomAnchor),
+            starIcon.heightAnchor.constraint(equalToConstant: 5),
+            starIcon.leadingAnchor.constraint(equalTo: underPictureStackView.trailingAnchor, constant: 40),
+           starIcon.widthAnchor.constraint(equalToConstant: 5),
+          
             voteImdb.topAnchor.constraint(equalTo: underPictureStackView.topAnchor),
-            voteImdb.leadingAnchor.constraint(equalTo: starIcon.trailingAnchor, constant: -33),
-            starIcon.bottomAnchor.constraint(equalTo: underPictureStackView.bottomAnchor, constant: -20),
+            voteImdb.bottomAnchor.constraint(equalTo: underPictureStackView.bottomAnchor),
+            voteImdb.leadingAnchor.constraint(equalTo: underPictureStackView.trailingAnchor, constant: 165),
+           // voteImdb.trailingAnchor.constraint(equalTo: voteImdb.trailingAnchor, constant: -20),
+      
+     
+
+            releaseLabel.topAnchor.constraint(equalTo: underPictureStackView.topAnchor),
+            releaseLabel.leadingAnchor.constraint(equalTo: voteImdb.trailingAnchor, constant: 2),
+            releaseLabel.bottomAnchor.constraint(equalTo: underPictureStackView.bottomAnchor)
+            //releaseLabel.trailingAnchor.constraint(equalTo: underPictureStackView.trailingAnchor, constant: -60),
             
         ])
     }
@@ -378,6 +382,7 @@ extension MovieDetailVC {
             definitionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
             definitionLabel.leadingAnchor.constraint(equalTo: underPictureStackView.leadingAnchor),
             definitionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            definitionLabel.bottomAnchor.constraint(equalTo: smilarLabel.topAnchor)
         
         ])
     }
@@ -386,7 +391,7 @@ extension MovieDetailVC {
         NSLayoutConstraint.activate([
             
             
-           // smilarLabel.topAnchor.constraint(equalTo: definitionLabel.bottomAnchor, constant: 5),
+            smilarLabel.topAnchor.constraint(equalTo: definitionLabel.bottomAnchor),
             smilarLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             smilarLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             smilarLabel.bottomAnchor.constraint(equalTo: bottomCollectionView.topAnchor,constant: -5),

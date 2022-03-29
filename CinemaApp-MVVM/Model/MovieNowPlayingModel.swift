@@ -36,6 +36,7 @@ struct MovieNowPlayingInfo: Codable {
     let video: Bool
     let voteAverage: Double
     let voteCount: Int
+   
 
     enum CodingKeys: String, CodingKey {
         case adult
@@ -59,3 +60,9 @@ struct Dates: Codable {
     let maximum, minimum: String?
 }
 
+enum OriginalLanguage: String, Codable {
+    case en = "en"
+    case fr = "fr"
+    case ja = "ja"
+    case no = "no"
+}

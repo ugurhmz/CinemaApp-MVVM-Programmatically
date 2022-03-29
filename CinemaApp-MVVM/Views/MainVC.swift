@@ -255,6 +255,16 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
         return .zero
     }
     
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        
+        print("gelenid", homeMovieNowPlayingList[indexPath.item].id)
+        let movieDetailVC = MovieDetailVC()
+        movieDetailVC.myId =  homeMovieNowPlayingList[indexPath.item].id
+        navigationController?.pushViewController(movieDetailVC, animated: false)
+    }
+    
 }
 
 

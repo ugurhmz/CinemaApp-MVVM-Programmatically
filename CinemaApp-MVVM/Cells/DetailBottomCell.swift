@@ -60,13 +60,11 @@ class DetailBottomCell: UICollectionViewCell {
         imageView.af.setImage(withURL: URL(string: completePath ) ??
                                   URL(string: randomImage)!)
         
-        
-        
+        print("modelTitle", model.title)
+        print("modelTitle", model.releaseDate.prefix(4))
         titleLabel.text = "\(model.title) (\(model.releaseDate.prefix(4)))"
         
     }
-    
-   
     
     required init?(coder: NSCoder) {
         fatalError("not imp")
