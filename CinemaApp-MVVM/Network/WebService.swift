@@ -25,7 +25,7 @@ final class MovieService {
     typealias cUpComingHandler = ([MovieUpComingInfo]?, String?) -> Void
     typealias detailHandler = (MovieDetailsModel?,String?) -> Void
     
-    
+    static let shared = MovieService()
     //MARK: -  getMovies with types
     func fetchNowPlayingMovies(movieType: MovieTypes, completion: @escaping cHandler) {
         let endPoint = apiBaseUrl + "\(movieType.rawValue)?api_key=\(myAPIKey)" + languageAndPage
@@ -94,5 +94,24 @@ final class MovieService {
     }
     
     // fetch Searching with api
-    
+    //MARK: - getSearch
+      public func getSearch(with query: String,
+                            completion: @escaping  cUpComingHandler){
+         
+         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return}
+         let urlString =  "https://api.themoviedb.org/3/search/movie?api_key=\(myAPIKey)&query=\(query)"
+          
+          
+          let req = AF.request(urlString)
+          req.validate().responseDecodable(of: MovieUpComingModel.self) { res in
+              
+              switch res.result {
+              case .success(let movieInfos):
+                  completion(movieInfos.results, nil)
+              case .failure(let error):
+                  completion(nil, error.localizedDescription)
+              }
+          }
+      
+      }
 }

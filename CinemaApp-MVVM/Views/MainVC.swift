@@ -34,7 +34,8 @@ class MainVC: UIViewController {
       
         cv.showsHorizontalScrollIndicator = false
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.backgroundColor = .systemBackground
+        cv.backgroundColor = .lightGray
+        
         
         //register cells
         cv.register(HomeTopCell.self,
@@ -45,16 +46,22 @@ class MainVC: UIViewController {
         return cv
     }()
     
-    // searchbar
-    lazy var searchController: UISearchController = {
-       let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchBar.tintColor = .black
-        searchController.hidesNavigationBarDuringPresentation = false
-        return searchController
-    }()
+//    // searchbar
+//    lazy var searchController: UISearchController = {
+//       let searchController = UISearchController(searchResultsController: SearchResultsVC())
+//        searchController.searchBar.tintColor = .black
+//        searchController.hidesNavigationBarDuringPresentation = false
+//        return searchController
+//    }()
     
     
-    
+    private let searchController: UISearchController = {
+         let controller = UISearchController(searchResultsController: SearchResultsVC())
+         controller.searchBar.placeholder = "Searching.."
+         controller.searchBar.searchBarStyle = .minimal
+         return controller
+     }()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +72,12 @@ class MainVC: UIViewController {
         viewModel.fetchNowPlayingItems()
         viewModel.fetchUpcomingItems()
       
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.tintColor = .white
+        navigationItem.searchController = searchController
+        searchController.searchResultsUpdater = self
+        
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -83,7 +96,7 @@ class MainVC: UIViewController {
         generalCollectionView.dataSource = self
         
         indicator.startAnimating()
-        configureSearchBarButton()
+        //configureSearchBarButton()
      
     }
 
@@ -190,7 +203,8 @@ extension MainVC {
             generalCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
             generalCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             generalCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            generalCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            generalCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+           
         ])
     }
     
@@ -257,9 +271,9 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         if section == 1 {
-            return 25
+            return 8
         }
-        return .zero
+        return 0
     }
     
     
@@ -275,6 +289,8 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
         movieDetailVC.myId =  homeMovieNowPlayingList[indexPath.item].id
         navigationController?.pushViewController(movieDetailVC, animated: false)
     }
+    
+  
     
 }
 
@@ -304,9 +320,15 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
+        if section == 0 {
+           return  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        }
         
-        return UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        return UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
     }
+    
+   
+   
 }
 
 
@@ -323,8 +345,30 @@ extension MainVC: HomeTopCellProtocol {
     }
     
     
+}
+
+
+extension MainVC : UISearchResultsUpdating {
     
-    
-    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        let searchBar = searchController.searchBar
+        //print("mytext",searchBar.text)
+        
+        guard let query = searchBar.text,
+                !query.trimmingCharacters(in: .whitespaces).isEmpty,
+                query.trimmingCharacters(in: .whitespaces).count >= 3,
+                          
+                let resultController = searchController.searchResultsController as? SearchResultsVC else {  return}
+        
+      
+       
+        MovieService.shared.getSearch(with: query ) { res, error in
+            DispatchQueue.main.async {
+                 print("myres",res)
+            }
+        }
+        
+    }
     
 }
