@@ -173,6 +173,13 @@ class MovieDetailVC: UIViewController {
         bottomCollectionView.dataSource = self
         bottomCollectionView.backgroundColor = .clear
         setConstraints()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "house"), style: .done, target: self, action: #selector(goHomeBtn))
+    }
+    
+    @objc func goHomeBtn(){
+        navigationController?.pushViewController(MainVC(), animated: true)
+        
     }
     
     
@@ -262,6 +269,17 @@ extension MovieDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
        
         
         return bottomCell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+       // print(detailMovieSimilarList[indexPath.row])
+        
+        let movieDetailVC = MovieDetailVC()
+        
+        movieDetailVC.myId = detailMovieSimilarList[indexPath.row].id
+        navigationController?.pushViewController(movieDetailVC, animated: false)
+        
     }
     
 }

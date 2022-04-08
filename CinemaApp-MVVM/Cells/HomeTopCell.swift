@@ -4,13 +4,22 @@
 //
 //  Created by ugur-pc on 25.03.2022.
 //
+import AlamofireImage
 
 import UIKit
-import AlamofireImage
+
+
+protocol HomeTopCellProtocol:AnyObject{
+    func didPressCell(sendId: Int)
+}
+
 
 class HomeTopCell: UICollectionViewCell {
     
    
+    weak var topcellDelegate: HomeTopCellProtocol?
+    
+    
     var cellMovieUpComingList = [MovieUpComingInfo]()
     
     static var identifier = "HomeTopCell"
@@ -53,8 +62,9 @@ class HomeTopCell: UICollectionViewCell {
     
    
     func setupViews() {
-        contentView.addSubview(topGeneralCollectionView)
-        contentView.addSubview(pageControl)
+        
+        [topGeneralCollectionView, pageControl].forEach { contentView.addSubview($0)}
+      
         
         setTopGeneralCollectionViewConstraints()
         setPageControlConstraints()
@@ -154,6 +164,15 @@ extension HomeTopCell: UICollectionViewDelegate, UICollectionViewDataSource {
         cell.saveModel(model: cellMovieUpComingList[indexPath.row])
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let newId = cellMovieUpComingList[indexPath.item].id else {
+            return
+        }
+        print("newId", newId)
+        self.topcellDelegate?.didPressCell(sendId: newId)
     }
    
 }

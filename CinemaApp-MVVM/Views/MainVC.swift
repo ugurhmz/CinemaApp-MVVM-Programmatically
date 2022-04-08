@@ -24,7 +24,7 @@ class MainVC: UIViewController {
     private let indicator: UIActivityIndicatorView = UIActivityIndicatorView()
     var searchMode = false
     var filteredList = [MovieNowPlayingInfo]()
-    
+  
     
     // General CollectionView
     private let generalCollectionView: UICollectionView = {
@@ -34,7 +34,7 @@ class MainVC: UIViewController {
       
         cv.showsHorizontalScrollIndicator = false
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.backgroundColor = .lightGray
+        cv.backgroundColor = .systemBackground
         
         //register cells
         cv.register(HomeTopCell.self,
@@ -64,8 +64,15 @@ class MainVC: UIViewController {
         viewModel.setDelegate(output: self)
         viewModel.fetchNowPlayingItems()
         viewModel.fetchUpcomingItems()
+      
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("viewWillAppear")
+        self.navigationItem.setHidesBackButton(true, animated: true)
+    }
+   
     
     func setupViews() {
         view.addSubview(generalCollectionView)
@@ -223,7 +230,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
             let topCell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: HomeTopCell.identifier, for: indexPath) as! HomeTopCell
             
             topCell.setX(model: homeMovieUpComingList)
-            
+            topCell.topcellDelegate = self
             return topCell
         }
         
@@ -300,6 +307,24 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
         
         return UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
     }
+}
+
+
+
+
+
+
+//MARK: - HomeTopCell'den -> Buraya veri gönderimi, delegate Design Pattern
+extension MainVC: HomeTopCellProtocol {
+    func didPressCell(sendId: Int) {
+        let movieDetailvc = MovieDetailVC()
+        movieDetailvc.myId = sendId
+        self.navigationController?.pushViewController(movieDetailvc, animated: true)
+    }
     
-   
+    
+    
+    
+    
+    
 }
