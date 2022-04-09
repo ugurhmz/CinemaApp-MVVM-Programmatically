@@ -31,18 +31,16 @@ class MainVC: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-      
         cv.showsHorizontalScrollIndicator = false
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.backgroundColor = .lightGray
-        
+        cv.backgroundColor = .systemBackground
+       
         
         //register cells
         cv.register(HomeTopCell.self,
                     forCellWithReuseIdentifier: HomeTopCell.identifier)
         cv.register(HomeBottomListCell.self,
                     forCellWithReuseIdentifier: HomeBottomListCell.identifier)
-        
+        cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
     }()
     
@@ -72,7 +70,7 @@ class MainVC: UIViewController {
         viewModel.fetchNowPlayingItems()
         viewModel.fetchUpcomingItems()
       
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.tintColor = .white
         navigationItem.searchController = searchController
@@ -104,69 +102,69 @@ class MainVC: UIViewController {
 }
 
 
-//MARK: - SearchBar
-extension MainVC {
-    
-    func configureSearchBarButton(){
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(showSearchBar))
-    }
-
-    @objc func showSearchBar() {
-        searchingFunc(shouldShow: true)
-    }
-
-    @objc func searchingFunc(shouldShow: Bool) {
-        if shouldShow {
-            // searchBar
-            let searchBar = UISearchBar()
-            searchBar.delegate = self
-            searchBar.sizeToFit()
-            searchBar.showsCancelButton = true
-            searchBar.becomeFirstResponder() // icona tıklayınca searchbar focus
-            searchBar.tintColor = .white
-            searchBar.searchTextField.backgroundColor = .lightGray.withAlphaComponent(0.8)
-            searchBar.searchTextField.textColor = .white
-
-            navigationItem.rightBarButtonItem = nil
-            navigationItem.titleView = searchBar
-
-        } else {
-            navigationItem.titleView = nil
-            configureSearchBarButton()
-            searchMode = false
-            generalCollectionView.reloadData()
-        }
-    }
-
-}
-
-
-//MARK: - SearchBarDelegate
-extension MainVC: UISearchBarDelegate {
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.searchingFunc(shouldShow: false)
-    }
-    
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty || searchBar.text == nil {
-            searchMode = false
-            generalCollectionView.reloadData()
-            view.endEditing(true)
-        } else {    // search mode ON
-
-            searchMode = true
-            
-            filteredList = homeMovieNowPlayingList.filter({
-                $0.title.lowercased().contains(searchText.lowercased()) as! Bool
-            })
-
-            generalCollectionView.reloadData()
-        }
-    }
-    
-}
+////MARK: - SearchBar For static searching.
+//extension MainVC {
+//
+//    func configureSearchBarButton(){
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(showSearchBar))
+//    }
+//
+//    @objc func showSearchBar() {
+//        searchingFunc(shouldShow: true)
+//    }
+//
+//    @objc func searchingFunc(shouldShow: Bool) {
+//        if shouldShow {
+//            // searchBar
+//            let searchBar = UISearchBar()
+//            searchBar.delegate = self
+//            searchBar.sizeToFit()
+//            searchBar.showsCancelButton = true
+//            searchBar.becomeFirstResponder() // icona tıklayınca searchbar focus
+//            searchBar.tintColor = .white
+//            searchBar.searchTextField.backgroundColor = .lightGray.withAlphaComponent(0.8)
+//            searchBar.searchTextField.textColor = .white
+//
+//            navigationItem.rightBarButtonItem = nil
+//            navigationItem.titleView = searchBar
+//
+//        } else {
+//            navigationItem.titleView = nil
+//            configureSearchBarButton()
+//            searchMode = false
+//            generalCollectionView.reloadData()
+//        }
+//    }
+//
+//}
+//
+//
+////MARK: - SearchBarDelegate
+//extension MainVC: UISearchBarDelegate {
+//
+//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+//        self.searchingFunc(shouldShow: false)
+//    }
+//
+//
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        if searchText.isEmpty || searchBar.text == nil {
+//            searchMode = false
+//            generalCollectionView.reloadData()
+//            view.endEditing(true)
+//        } else {    // search mode ON
+//
+//            searchMode = true
+//
+//            filteredList = homeMovieNowPlayingList.filter({
+//                $0.title.lowercased().contains(searchText.lowercased()) as! Bool
+//            })
+//
+//            generalCollectionView.reloadData()
+//        }
+//    }
+//
+//}
 
 //MARK: - MovieOutPutProtocol
 extension MainVC: MovieOutPutProtocol {
@@ -200,7 +198,7 @@ extension MainVC {
     
     private func setGeneralCollectionViewConstraints() {
         NSLayoutConstraint.activate([
-            generalCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            generalCollectionView.topAnchor.constraint(equalTo:view.topAnchor),
             generalCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             generalCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             generalCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -256,9 +254,9 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
       
         bottomListCell.layer.shadowColor = UIColor.white.cgColor
         bottomListCell.layer.shadowPath = UIBezierPath(rect: bottomListCell.bounds).cgPath
-        bottomListCell.layer.shadowRadius = 5
+        bottomListCell.layer.shadowRadius = 3
         bottomListCell.layer.shadowOffset = .zero
-        bottomListCell.layer.shadowOpacity = 0.8
+        bottomListCell.layer.shadowOpacity = 0.6
         
         searchMode ?   bottomListCell.saveModel(model: filteredList[indexPath.item])  :
         bottomListCell.saveModel(model: homeMovieNowPlayingList[indexPath.item])
@@ -289,6 +287,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
         movieDetailVC.myId =  homeMovieNowPlayingList[indexPath.item].id
         navigationController?.pushViewController(movieDetailVC, animated: false)
     }
+    
     
   
     
@@ -321,11 +320,12 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         if section == 0 {
-           return  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            return  .zero
         }
         
         return UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
     }
+    
     
 }
 

@@ -60,7 +60,7 @@ class MovieDetailVC: UIViewController {
     private let voteImdb: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.font = .systemFont(ofSize: 18, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -69,7 +69,7 @@ class MovieDetailVC: UIViewController {
     private let releaseLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.font = .systemFont(ofSize: 17, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -120,9 +120,9 @@ class MovieDetailVC: UIViewController {
     private let underPictureStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        //stackView.distribution = .equalCentering
-        stackView.alignment = .leading
+        //stackView.distribution = .fillProportionally
+        stackView.distribution = .equalCentering
+        stackView.alignment = .center
       
 //        stackView.layer.borderWidth = 3
 //        stackView.layer.borderColor = UIColor.red.cgColor
@@ -339,10 +339,10 @@ extension MovieDetailVC {
     // stackView Constraints
     private func setStackViewConstraints(){
             NSLayoutConstraint.activate([
-                underPictureStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
+                underPictureStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
                 underPictureStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
                 underPictureStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-                underPictureStackView.heightAnchor.constraint(equalToConstant: 35)
+                underPictureStackView.heightAnchor.constraint(equalToConstant: 37)
             ])
         }
     
@@ -419,7 +419,7 @@ extension MovieDetailVC {
         NSLayoutConstraint.activate([
             
             
-            smilarLabel.topAnchor.constraint(equalTo: definitionLabel.bottomAnchor, constant: 20),
+            smilarLabel.topAnchor.constraint(equalTo: definitionLabel.bottomAnchor, constant: 24),
             smilarLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             smilarLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             smilarLabel.bottomAnchor.constraint(equalTo: bottomCollectionView.topAnchor,constant: -5),

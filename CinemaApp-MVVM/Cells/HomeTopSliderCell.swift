@@ -95,14 +95,10 @@ class HomeTopSliderCell: UICollectionViewCell {
     
     
     func setupViews() {
-        contentView.addSubview(movieImageView)
-        contentView.addSubview(transparentView)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(definitionLabel)
-        contentView.addSubview(labelsStackView)
-       
-        
-        
+
+        [movieImageView, transparentView, titleLabel, definitionLabel, labelsStackView].forEach {
+            contentView.addSubview( $0 )
+        }
         
         setMovieImageViewConstraints()
         setTransparentViewConstraints()
@@ -110,11 +106,7 @@ class HomeTopSliderCell: UICollectionViewCell {
         setDefinitionConstraints()
         setStackViewConstraints()
         
-        
-        
-        labelsStackView.addArrangedSubview(titleLabel)
-        labelsStackView.addArrangedSubview(definitionLabel)
-        
+        [titleLabel, definitionLabel].forEach { contentView.addSubview($0) }
     }
     
     required init?(coder: NSCoder) {
