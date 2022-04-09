@@ -49,10 +49,9 @@ class MovieDetailVC: UIViewController {
     // star icon
     private let starIcon: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysOriginal)
+        iv.image = UIImage(systemName: "star.fill")
         iv.tintColor = .yellow
         iv.contentMode = .scaleAspectFill
-        
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
@@ -61,7 +60,7 @@ class MovieDetailVC: UIViewController {
     private let voteImdb: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = .systemFont(ofSize: 17, weight: .bold)
+        label.font = .systemFont(ofSize: 16, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -70,7 +69,7 @@ class MovieDetailVC: UIViewController {
     private let releaseLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.font = .systemFont(ofSize: 16, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -121,14 +120,15 @@ class MovieDetailVC: UIViewController {
     private let underPictureStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        //stackView.distribution = .fillEqually
-        //stackView.alignment = .leading
+        stackView.distribution = .fillEqually
+        //stackView.distribution = .equalCentering
+        stackView.alignment = .leading
       
 //        stackView.layer.borderWidth = 3
 //        stackView.layer.borderColor = UIColor.red.cgColor
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
+        stackView.spacing = 30
         return stackView
     }()
     
@@ -186,7 +186,7 @@ class MovieDetailVC: UIViewController {
     func setConstraints(){
         setimageViewConstraints()
         setStackViewConstraints()
-        setImbdbIconConstraints()
+        //setImbdbIconConstraints()
         setStarIconConstraints()
         setTitleConstraints()
         setDefinitionConstraints()
@@ -227,8 +227,8 @@ extension MovieDetailVC: DetailOutPutProtocol {
             
             self.definitionLabel.text =  "\(mvInfos?.overview ?? "-")"
             
-            self.voteImdb.text = "\(mvInfos?.voteAverage ?? 0.0)/10"
-            self.releaseLabel.text = "\(mvInfos?.releaseDate ?? "-")"
+            self.voteImdb.text = " \(mvInfos?.voteAverage ?? 0.0)  / 10"
+            self.releaseLabel.text = "\(mvInfos?.releaseDate?.prefix(7) ?? "-")"
         }
     }
     
@@ -331,7 +331,7 @@ extension MovieDetailVC {
             imageView.topAnchor.constraint(equalTo: view.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 300)
+            imageView.heightAnchor.constraint(equalToConstant: 320)
         ])
     }
     
@@ -342,7 +342,7 @@ extension MovieDetailVC {
                 underPictureStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
                 underPictureStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
                 underPictureStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-                underPictureStackView.heightAnchor.constraint(equalToConstant: 45)
+                underPictureStackView.heightAnchor.constraint(equalToConstant: 35)
             ])
         }
     
@@ -362,23 +362,33 @@ extension MovieDetailVC {
     // star cons
     private func setStarIconConstraints(){
         NSLayoutConstraint.activate([
-            starIcon.topAnchor.constraint(equalTo: underPictureStackView.topAnchor, constant: -3),
-            starIcon.bottomAnchor.constraint(equalTo: underPictureStackView.bottomAnchor),
+//            starIcon.topAnchor.constraint(equalTo: underPictureStackView.topAnchor, constant: 10),
+//            starIcon.bottomAnchor.constraint(equalTo: underPictureStackView.bottomAnchor, constant: -5),
+//
+//            starIcon.leadingAnchor.constraint(equalTo: imbdbIcon.trailingAnchor, constant: 3),
+//            starIcon.trailingAnchor.constraint(equalTo: voteImdb.leadingAnchor, constant: -3),
+//            starIcon.widthAnchor.constraint(equalToConstant: 3),
+//            starIcon.heightAnchor.constraint(equalToConstant: 3),
+            
+            starIcon.topAnchor.constraint(equalTo: underPictureStackView.topAnchor),
+            //starIcon.leadingAnchor.constraint(equalTo: imbdbIcon.leadingAnchor, constant: 25),
+            starIcon.trailingAnchor.constraint(equalTo: voteImdb.leadingAnchor),
+            starIcon.bottomAnchor.constraint(equalTo: underPictureStackView.bottomAnchor, constant: -25),
             starIcon.heightAnchor.constraint(equalToConstant: 5),
-            starIcon.leadingAnchor.constraint(equalTo: underPictureStackView.trailingAnchor, constant: 40),
-           starIcon.widthAnchor.constraint(equalToConstant: 5),
+            
+            
           
-            voteImdb.topAnchor.constraint(equalTo: underPictureStackView.topAnchor),
-            voteImdb.bottomAnchor.constraint(equalTo: underPictureStackView.bottomAnchor),
-            voteImdb.leadingAnchor.constraint(equalTo: underPictureStackView.trailingAnchor, constant: 165),
-           // voteImdb.trailingAnchor.constraint(equalTo: voteImdb.trailingAnchor, constant: -20),
-      
-     
-
-            releaseLabel.topAnchor.constraint(equalTo: underPictureStackView.topAnchor),
-            releaseLabel.leadingAnchor.constraint(equalTo: voteImdb.trailingAnchor, constant: 2),
-            releaseLabel.bottomAnchor.constraint(equalTo: underPictureStackView.bottomAnchor)
-            //releaseLabel.trailingAnchor.constraint(equalTo: underPictureStackView.trailingAnchor, constant: -60),
+//            voteImdb.topAnchor.constraint(equalTo: underPictureStackView.topAnchor),
+//            voteImdb.bottomAnchor.constraint(equalTo: underPictureStackView.bottomAnchor),
+//            voteImdb.leadingAnchor.constraint(equalTo: starIcon.trailingAnchor, constant: 5),
+//           // voteImdb.trailingAnchor.constraint(equalTo: voteImdb.trailingAnchor, constant: -20),
+//
+//
+//
+//            releaseLabel.topAnchor.constraint(equalTo: underPictureStackView.topAnchor),
+//            releaseLabel.leadingAnchor.constraint(equalTo: voteImdb.trailingAnchor, constant: 2),
+//            releaseLabel.bottomAnchor.constraint(equalTo: underPictureStackView.bottomAnchor)
+//            //releaseLabel.trailingAnchor.constraint(equalTo: underPictureStackView.trailingAnchor, constant: -60),
             
         ])
     }
@@ -409,7 +419,7 @@ extension MovieDetailVC {
         NSLayoutConstraint.activate([
             
             
-            smilarLabel.topAnchor.constraint(equalTo: definitionLabel.bottomAnchor),
+            smilarLabel.topAnchor.constraint(equalTo: definitionLabel.bottomAnchor, constant: 20),
             smilarLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             smilarLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             smilarLabel.bottomAnchor.constraint(equalTo: bottomCollectionView.topAnchor,constant: -5),
@@ -420,7 +430,7 @@ extension MovieDetailVC {
             bottomCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bottomCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             //bottomCollectionView.heightAnchor.constraint(equalToConstant: 100),
-            bottomCollectionView.topAnchor.constraint(equalTo: definitionLabel.bottomAnchor, constant: 70)
+            bottomCollectionView.topAnchor.constraint(equalTo: smilarLabel.bottomAnchor, constant: 5)
         ])
     }
     

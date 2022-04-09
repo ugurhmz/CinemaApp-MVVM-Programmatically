@@ -334,6 +334,7 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
 //MARK: - HomeTopCell'den -> Buraya veri gönderimi, delegate Design Pattern
 extension MainVC: HomeTopCellProtocol {
     func didPressCell(sendId: Int) {
+        print("IDGELDİ", sendId)
         let movieDetailvc = MovieDetailVC()
         movieDetailvc.myId = sendId
         self.navigationController?.pushViewController(movieDetailvc, animated: true)
@@ -341,6 +342,8 @@ extension MainVC: HomeTopCellProtocol {
     
     
 }
+
+
 
 
 extension MainVC : UISearchResultsUpdating {
@@ -358,13 +361,20 @@ extension MainVC : UISearchResultsUpdating {
         
       
        
-        MovieService.shared.getSearch(with: query ) { res, error in
+        MovieService.shared.getSearch(with: query ) { [weak self] (res,error) in
             DispatchQueue.main.async {
                 resultController.configure(model: res ?? [])
                 resultController.searchResultsCollectionView.reloadData()
+                        
             }
         }
-        
+       
     }
     
+   
+  
+    
+    
+    
 }
+

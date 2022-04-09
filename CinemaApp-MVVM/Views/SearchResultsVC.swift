@@ -17,12 +17,15 @@ protocol SearchMovieOutPutProtocol {
 class SearchResultsVC: UIViewController {
     
     public var resultList: [MovieUpComingInfo] = []
+  
     
     public var searchResultsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: SearchResultsVC.createCompositionalLayout())
         cv.register(CompositonalCustomCell.self,
                     forCellWithReuseIdentifier: CompositonalCustomCell.identifier)
+        
+        cv.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
     }()
@@ -38,16 +41,7 @@ class SearchResultsVC: UIViewController {
     }
     
     static func createSectionFor(index: Int, envr: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
-        switch index {
-        case 0:
-            return createThirdSection()
-        case 1:
-            return createThirdSection()
-        case 2:
-            return createThirdSection()
-        default:
-            return createThirdSection()
-        }
+        return createThirdSection()
     }
     
     
@@ -78,7 +72,7 @@ class SearchResultsVC: UIViewController {
                                                              subitems: [smallItem])
         
         let horizontalGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                         heightDimension: .fractionalHeight(0.4))
+                                                         heightDimension: .fractionalHeight(0.6))
         let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: horizontalGroupSize, subitems: [largeItem, verticalGroup, verticalGroup])
         
         
@@ -86,13 +80,13 @@ class SearchResultsVC: UIViewController {
         let section = NSCollectionLayoutSection(group: horizontalGroup)
         section.orthogonalScrollingBehavior = .groupPaging
         
-        // suplementary
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                heightDimension: .absolute(44))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
-                                                                 elementKind: "header",
-                                                                 alignment: .top)
-        section.boundarySupplementaryItems = [header]
+//        // suplementary
+//        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+//                                                heightDimension: .absolute(44))
+//        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
+//                                                                 elementKind: "header",
+//                                                                 alignment: .bottom)
+//        section.boundarySupplementaryItems = [header]
         
         return section
     }
@@ -100,8 +94,7 @@ class SearchResultsVC: UIViewController {
     public func configure(model: [MovieUpComingInfo]) {
         print("mymodel",model)
         self.resultList = model
-        
-        
+       
     }
     
     
@@ -109,7 +102,6 @@ class SearchResultsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        print("resultList.count",resultList.count)
        
     }
     
@@ -118,13 +110,11 @@ class SearchResultsVC: UIViewController {
     
     private func setupViews(){
         [searchResultsCollectionView].forEach{ view.addSubview($0)}
-        searchResultsCollectionView.dataSource = self
-        //generalCollectionView.delegate = self
         
         searchResultsCollectionView.collectionViewLayout =  SearchResultsVC.createCompositionalLayout()
-        
-        
             setConstraints()
+        searchResultsCollectionView.dataSource = self
+        searchResultsCollectionView.delegate = self
         }
     
 
@@ -143,25 +133,27 @@ extension SearchResultsVC {
             searchResultsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             searchResultsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             searchResultsCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            
         ])
     }
 }
 
 
 //MARK: - DataSource
-extension SearchResultsVC: UICollectionViewDataSource {
+extension SearchResultsVC: UICollectionViewDataSource, UICollectionViewDelegate{
     
     // numberOfSections
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 4
+        return 1
     }
     
     
     // numberOfItemsInSection
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        
-        return self.resultList.count
+
+            return self.resultList.count
+     
     }
     
     
@@ -181,9 +173,21 @@ extension SearchResultsVC: UICollectionViewDataSource {
 //                                         saturation: 1,
 //                                         brightness: 1,
 //                                         alpha: 1)
+        cell.layer.borderWidth = 0.7
+        cell.layer.borderColor = UIColor.white.cgColor
+        cell.layer.cornerRadius = 8
+        cell.layer.shadowColor = UIColor.white.cgColor
+        cell.layer.shadowPath = UIBezierPath(rect: cell.bounds).cgPath
+        cell.layer.shadowRadius = 3
+        cell.layer.shadowOffset = .zero
+        cell.layer.shadowOpacity = 0.6
         
         return cell
     }
+  
     
     
 }
+
+
+
