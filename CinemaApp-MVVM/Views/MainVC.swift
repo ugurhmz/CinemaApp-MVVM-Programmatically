@@ -327,12 +327,7 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
     }
     
-   
-   
 }
-
-
-
 
 
 
@@ -359,13 +354,14 @@ extension MainVC : UISearchResultsUpdating {
                 !query.trimmingCharacters(in: .whitespaces).isEmpty,
                 query.trimmingCharacters(in: .whitespaces).count >= 3,
                           
-                let resultController = searchController.searchResultsController as? SearchResultsVC else {  return}
+                var resultController = searchController.searchResultsController as? SearchResultsVC else {  return}
         
       
        
         MovieService.shared.getSearch(with: query ) { res, error in
             DispatchQueue.main.async {
-                 print("myres",res)
+                resultController.configure(model: res ?? [])
+                resultController.searchResultsCollectionView.reloadData()
             }
         }
         

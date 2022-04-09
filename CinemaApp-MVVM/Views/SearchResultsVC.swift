@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Kingfisher
 
 protocol SearchMovieOutPutProtocol {
     func saveSearchingResult(movieValues: [MovieUpComingInfo])
@@ -15,7 +15,8 @@ protocol SearchMovieOutPutProtocol {
 
 
 class SearchResultsVC: UIViewController {
-
+    
+    public var resultList: [MovieUpComingInfo] = []
     
     public var searchResultsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -96,12 +97,24 @@ class SearchResultsVC: UIViewController {
         return section
     }
     
+    public func configure(model: [MovieUpComingInfo]) {
+        print("mymodel",model)
+        self.resultList = model
+        
+        
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        print("resultList.count",resultList.count)
        
     }
+    
+    
+    
     
     private func setupViews(){
         [searchResultsCollectionView].forEach{ view.addSubview($0)}
@@ -147,8 +160,8 @@ extension SearchResultsVC: UICollectionViewDataSource {
     // numberOfItemsInSection
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        print("section",section)
-        return 50
+        
+        return self.resultList.count
     }
     
     
@@ -158,11 +171,16 @@ extension SearchResultsVC: UICollectionViewDataSource {
         let cell = searchResultsCollectionView.dequeueReusableCell(withReuseIdentifier: CompositonalCustomCell.identifier,
                                                              for: indexPath) as! CompositonalCustomCell
         
-        // RANDOM COLORS
-        cell.backgroundColor =   UIColor(hue: CGFloat(drand48()),
-                                         saturation: 1,
-                                         brightness: 1,
-                                         alpha: 1)
+        
+        let mymodel = resultList[indexPath.row]
+       
+        cell.configure(with: mymodel.posterPath ?? "")
+        
+//        // RANDOM COLORS
+//        cell.backgroundColor =   UIColor(hue: CGFloat(drand48()),
+//                                         saturation: 1,
+//                                         brightness: 1,
+//                                         alpha: 1)
         
         return cell
     }

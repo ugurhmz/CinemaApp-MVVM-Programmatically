@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class CompositonalCustomCell: UICollectionViewCell {
     
@@ -32,7 +33,24 @@ class CompositonalCustomCell: UICollectionViewCell {
         fatalError("not imp")
     }
     
-    
+   
+    public func configure(with model: String){
+            
+       
+        
+        guard var url = URL(string: "https://image.tmdb.org/t/p/w500\(model)") else {
+            return
+        }
+        print("myurl",model.isEmpty)
+        
+        if  model.isEmpty {
+            url = URL(string: "https://digitalfinger.id/wp-content/uploads/2019/12/no-image-available-icon-6.png")!
+           
+        }
+        
+     
+        myImageView.kf.setImage(with: url)
+    }
     
 }
 
