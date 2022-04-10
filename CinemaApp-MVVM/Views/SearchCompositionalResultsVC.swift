@@ -14,14 +14,14 @@ protocol SearchMovieOutPutProtocol {
 
 
 
-class SearchResultsVC: UIViewController {
+class SearchCompositionalResultsVC: UIViewController {
     
     public var resultList: [MovieUpComingInfo] = []
   
     
     public var searchResultsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: SearchResultsVC.createCompositionalLayout())
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: SearchCompositionalResultsVC.createCompositionalLayout())
         cv.register(CompositonalCustomCell.self,
                     forCellWithReuseIdentifier: CompositonalCustomCell.identifier)
         
@@ -34,7 +34,7 @@ class SearchResultsVC: UIViewController {
     
     static func createCompositionalLayout() ->  UICollectionViewCompositionalLayout {
         let mylayout = UICollectionViewCompositionalLayout { (index, enviroment) -> NSCollectionLayoutSection? in
-            return SearchResultsVC.createSectionFor(index: index, envr: enviroment)
+            return SearchCompositionalResultsVC.createSectionFor(index: index, envr: enviroment)
             
         }
         return mylayout
@@ -111,7 +111,7 @@ class SearchResultsVC: UIViewController {
     private func setupViews(){
         [searchResultsCollectionView].forEach{ view.addSubview($0)}
         
-        searchResultsCollectionView.collectionViewLayout =  SearchResultsVC.createCompositionalLayout()
+        searchResultsCollectionView.collectionViewLayout =  SearchCompositionalResultsVC.createCompositionalLayout()
             setConstraints()
         searchResultsCollectionView.dataSource = self
         searchResultsCollectionView.delegate = self
@@ -124,7 +124,7 @@ class SearchResultsVC: UIViewController {
 
 
 //MARK: - Constraints
-extension SearchResultsVC {
+extension SearchCompositionalResultsVC {
     
     private func setConstraints(){
         
@@ -140,7 +140,7 @@ extension SearchResultsVC {
 
 
 //MARK: - DataSource
-extension SearchResultsVC: UICollectionViewDataSource, UICollectionViewDelegate{
+extension SearchCompositionalResultsVC: UICollectionViewDataSource, UICollectionViewDelegate{
     
     // numberOfSections
     func numberOfSections(in collectionView: UICollectionView) -> Int {

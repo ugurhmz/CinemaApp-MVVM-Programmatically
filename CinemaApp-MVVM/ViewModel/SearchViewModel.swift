@@ -16,7 +16,7 @@ protocol SearchViewModelProtocol {
 final class SearchViewModel: SearchViewModelProtocol {
     var searchOutPut: SearchMovieOutPutProtocol?
     var movieWebService: MovieService
-    var resultCont: SearchResultsVC?
+    var resultCont: SearchCompositionalResultsVC?
     
     
     init(){

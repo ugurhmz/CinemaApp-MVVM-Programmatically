@@ -43,18 +43,10 @@ class MainVC: UIViewController {
         cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
     }()
-    
-//    // searchbar
-//    lazy var searchController: UISearchController = {
-//       let searchController = UISearchController(searchResultsController: SearchResultsVC())
-//        searchController.searchBar.tintColor = .black
-//        searchController.hidesNavigationBarDuringPresentation = false
-//        return searchController
-//    }()
-    
+
     
     private let searchController: UISearchController = {
-         let controller = UISearchController(searchResultsController: SearchResultsVC())
+         let controller = UISearchController(searchResultsController: SearchCompositionalResultsVC())
          controller.searchBar.placeholder = "Searching.."
          controller.searchBar.searchBarStyle = .minimal
          return controller
@@ -90,6 +82,22 @@ class MainVC: UIViewController {
         view.addSubview(indicator)
         setGeneralCollectionViewConstraints()
         
+        
+        if #available(iOS 13.0, *) {
+           let navBarAppearance = UINavigationBarAppearance()
+           //navBarAppearance.configureWithOpaqueBackground()
+
+           navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemYellow,NSAttributedString.Key.font: UIFont(name: "Chalkduster", size: 32.0)!]
+           navBarAppearance.backgroundColor = .black
+           navigationController?.navigationBar.barStyle = .black
+           navigationController?.navigationBar.standardAppearance = navBarAppearance
+           navigationController?.navigationBar.compactAppearance = navBarAppearance
+           navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+
+           navigationController?.navigationBar.prefersLargeTitles = false
+           navigationItem.title = "Ugur Cinema®"
+
+           }
         generalCollectionView.delegate = self
         generalCollectionView.dataSource = self
         
@@ -337,7 +345,7 @@ extension MainVC: HomeTopCellProtocol {
         print("IDGELDİ", sendId)
         let movieDetailvc = MovieDetailVC()
         movieDetailvc.myId = sendId
-        self.navigationController?.pushViewController(movieDetailvc, animated: true)
+        self.navigationController?.pushViewController(movieDetailvc, animated: false)
     }
     
     
@@ -357,7 +365,7 @@ extension MainVC : UISearchResultsUpdating {
                 !query.trimmingCharacters(in: .whitespaces).isEmpty,
                 query.trimmingCharacters(in: .whitespaces).count >= 3,
                           
-                var resultController = searchController.searchResultsController as? SearchResultsVC else {  return}
+                var resultController = searchController.searchResultsController as? SearchCompositionalResultsVC else {  return}
         
       
        
